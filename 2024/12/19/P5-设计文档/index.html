@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>CO-P5-设计文档 - Az&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Az&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Az&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="2024计算机组成原理P5设计文档"><meta property="og:type" content="blog"><meta property="og:title" content="CO-P5-设计文档"><meta property="og:url" content="https://lhy0424.top/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><meta property="og:site_name" content="Az&#039;s Blog"><meta property="og:description" content="2024计算机组成原理P5设计文档"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://lhy0424.top/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg"><meta property="article:published_time" content="2024-12-19T15:58:55.784Z"><meta property="article:modified_time" content="2024-12-19T16:32:17.320Z"><meta property="article:author" content="Az"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://lhy0424.top/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://lhy0424.top/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"},"headline":"CO-P5-设计文档","image":["https://lhy0424.top/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg"],"datePublished":"2024-12-19T15:58:55.784Z","dateModified":"2024-12-19T16:32:17.320Z","author":{"@type":"Person","name":"Az"},"publisher":{"@type":"Organization","name":"Az's Blog","logo":{"@type":"ImageObject","url":"https://lhy0424.top/img/logo.svg"}},"description":"2024计算机组成原理P5设计文档"}</script><link rel="canonical" href="https://lhy0424.top/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Az&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg" alt="CO-P5-设计文档"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-12-19T15:58:55.784Z" title="2024/12/19 23:58:55">2024-12-19</time>发表</span><span class="level-item"><time dateTime="2024-12-19T16:32:17.320Z" title="2024/12/20 00:32:17">2024-12-20</time>更新</span><span class="level-item">16 分钟读完 (大约2420个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">CO-P5-设计文档</h1><div class="content"><p>2024计算机组成原理P5设计文档</p>
+<span id="more"></span>
+
+<h1 id="P5-document"><a href="#P5-document" class="headerlink" title="P5_document"></a>P5_document</h1><h2 id="Hazard-v"><a href="#Hazard-v" class="headerlink" title="Hazard.v"></a>Hazard.v</h2><table>
+<thead>
+<tr>
+<th>input</th>
+<th>explain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Instr_ID</td>
+<td>ID阶段的指令码</td>
+</tr>
+<tr>
+<td>Instr_EX</td>
+<td>EX阶段的指令码</td>
+</tr>
+<tr>
+<td>Instr_MA</td>
+<td>MA阶段的指令码</td>
+</tr>
+<tr>
+<td>A3_EX</td>
+<td>EX阶段的寄存器写入地址</td>
+</tr>
+<tr>
+<td>A3_MA</td>
+<td>MA阶段的寄存器写入地址</td>
+</tr>
+</tbody></table>
+<h4 id="T-use表格（需求者）"><a href="#T-use表格（需求者）" class="headerlink" title="T_use表格（需求者）"></a>T_use表格（需求者）</h4><p>指令位于ID级时，还需要多少个周期才必须要使用数据。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>$T_{use}(rs)$</th>
+<th>$T_{use}(rt)$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>ori</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>lw</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>sw</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>beq</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>lui</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>jal</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>jr</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>nop</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tuse_rs = (add_ID | sub_ID | ori_ID | lw_ID | sw_ID | lui_ID)?<span class="number">2&#x27;b01</span>:</span><br><span class="line">							(beq_ID | jr_ID)? <span class="number">2&#x27;b00</span>:</span><br><span class="line">							<span class="number">2&#x27;b11</span>;</span><br><span class="line">							</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tuse_rt = (add_ID | sub_ID)? <span class="number">2&#x27;b01</span>:</span><br><span class="line">							(sw_ID)? <span class="number">2&#x27;b10</span>: </span><br><span class="line">							(beq_ID)? <span class="number">2&#x27;b00</span>:</span><br><span class="line">							<span class="number">2&#x27;b11</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="T-new表格（供给者）"><a href="#T-new表格（供给者）" class="headerlink" title="T_new表格（供给者）"></a>T_new表格（供给者）</h4><p>T_new: 供给指令位于某个流水级时还需要多少个周期才可以计算出结果并存储到流水寄存器中。</p>
+<p><em><strong>早于需求指令进入流水线的供给者还需要多少cycle能够产生需求者需要的寄存器值。</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>Intsr</th>
+<th>功能部件(结果来源)</th>
+<th>EX</th>
+<th>MA</th>
+<th>WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add</td>
+<td>ALU</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sub</td>
+<td>ALU</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ori</td>
+<td>ALU</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lw</td>
+<td>DM</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sw</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>beq</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>lui</td>
+<td>ALU</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>jal</td>
+<td>PC</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>jr</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>nop</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tnew_EX = (add_EX | sub_EX | ori_EX | lui_EX)? <span class="number">2&#x27;b01</span>:</span><br><span class="line">						(lw_EX)? <span class="number">2&#x27;b10</span>: <span class="number">2&#x27;b00</span>;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tnew_MA = lw_MA?<span class="number">2&#x27;b01</span>:<span class="number">2&#x27;b00</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="rs策略矩阵"><a href="#rs策略矩阵" class="headerlink" title="rs策略矩阵"></a>rs策略矩阵</h3><table>
+<thead>
+<tr>
+<th>$T_{use} \textbackslash \space T_{new}$</th>
+<th>EX</th>
+<th>EX</th>
+<th>EX</th>
+<th>MA</th>
+<th>MA</th>
+<th>MA</th>
+<th>WB</th>
+<th>WB</th>
+<th>WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+</tr>
+<tr>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>1</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody></table>
+<h3 id="rt策略矩阵"><a href="#rt策略矩阵" class="headerlink" title="rt策略矩阵"></a>rt策略矩阵</h3><table>
+<thead>
+<tr>
+<th>$T_{use} \textbackslash \space T_{new}$</th>
+<th>EX</th>
+<th>EX</th>
+<th>EX</th>
+<th>MA</th>
+<th>MA</th>
+<th>MA</th>
+<th>WB</th>
+<th>WB</th>
+<th>WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+</tr>
+<tr>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>1</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>2</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody></table>
+<h3 id="如何理解策略矩阵"><a href="#如何理解策略矩阵" class="headerlink" title="如何理解策略矩阵"></a>如何理解策略矩阵</h3><ul>
+<li>策略矩阵针对的是AT法中的Time部分，具体判断阻塞还是转发需要综合Adress部分</li>
+<li>对于ALU型指令，如add，只需要关注 $T_{new}$ 的ALU一列，其表示在当前流水级下，还有多少周期才能计算出结果并存入流水级寄存器。</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> Stall_RS_EX = (Tuse_rs &lt; Tnew_EX) &amp; (A3_EX == RS_ID &amp; RS_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_RS_MA = (Tuse_rs &lt; Tnew_MA) &amp; (A3_MA == RS_ID &amp; RS_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_RT_EX = (Tuse_rt &lt; Tnew_EX) &amp; (A3_EX == RT_ID &amp; RT_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_RT_MA = (Tuse_rt &lt; Tnew_MA) &amp; (A3_MA == RT_ID &amp; RT_ID != <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> Stall = Stall_RS_EX | Stall_RS_MA | Stall_RT_EX | Stall_RT_MA;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Forward-in-mips-v"><a href="#Forward-in-mips-v" class="headerlink" title="Forward in mips.v"></a>Forward in mips.v</h2><h4 id="数据的供给者"><a href="#数据的供给者" class="headerlink" title="数据的供给者"></a>数据的供给者</h4><ul>
+<li>EX_MA级流水线寄存器</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] forward_EX_MA = (RegWrite_MA &amp;&amp; (Mem2Reg_MA == <span class="number">2&#x27;b00</span>))? ALU_C_MA:  </span><br><span class="line">							(RegWrite_MA &amp;&amp; (Mem2Reg_MA == <span class="number">2&#x27;b10</span>))? pc_add4_MA + <span class="number">32&#x27;d4</span>:</span><br><span class="line">							<span class="number">32&#x27;h404</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>MA_WB级流水线寄存器</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> grf_WD = (Mem2Reg_WB == <span class="number">2&#x27;b00</span>) ? ALU_C_WB :</span><br><span class="line">				(Mem2Reg_WB == <span class="number">2&#x27;b01</span>) ? dm_data_WB :</span><br><span class="line">				(Mem2Reg_WB == <span class="number">2&#x27;b10</span>) ? pc_add4_WB + <span class="number">32&#x27;d4</span> : <span class="number">32&#x27;d0</span>;</span><br><span class="line">						 </span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] forward_MA_WB = RegWrite_WB? grf_WD: <span class="number">32&#x27;h405</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据需求者"><a href="#数据需求者" class="headerlink" title="数据需求者"></a>数据需求者</h4><ul>
+<li>ID级</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] RD1_ID_valid =  ((RS_ID == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							((RS_ID == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							RD1_ID;</span><br><span class="line">										</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] RD2_ID_valid =  ((RT_ID == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							((RT_ID == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							RD2_ID;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EX级</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//forward--select valid ALU_A and ALU_B</span></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] ALU_A_EX_valid = ((RS_EX == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							 ((RS_EX == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							 RD1_EX;</span><br><span class="line">										</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] Grt_EX_valid =  ((RT_EX == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							((RT_EX == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							RD2_EX;<span class="comment">//将目前正确的Grt值，流水到MA级供sw指令使用，也可供R-type-ALU指令使用</span></span><br><span class="line">										</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] Grt_MA_valid; </span><br><span class="line">							</span><br><span class="line">   <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] ALU_B_EX_valid = (ALUSrc_EX == <span class="number">1&#x27;b0</span>) ? Grt_EX_valid:</span><br><span class="line">							 (ALUSrc_EX == <span class="number">1&#x27;b1</span>) ? ext32_EX : <span class="number">32&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>MA级</p>
+<p>  再一次获取转发数据，确保DM中的Grt值是正确的</p>
+</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] Grt_MA_valid_valid = ((RT_MA == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;d0</span>))? forward_MA_WB: Grt_MA_valid;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="流水线寄存器"><a href="#流水线寄存器" class="headerlink" title="流水线寄存器"></a>流水线寄存器</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>PC</th>
+<th>IF_ID</th>
+<th>ID_EX</th>
+<th>EX_MA</th>
+<th>MA_WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>en</td>
+<td>nStall</td>
+<td>nStall</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>clr</td>
+<td>null</td>
+<td>false</td>
+<td>Stall</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RegDst</th>
+<th>ExtOp</th>
+<th>jump</th>
+<th>jumpSrc</th>
+<th>branch</th>
+<th>bOp</th>
+<th>ALUSrc</th>
+<th>ALUOP</th>
+<th>MemWrite</th>
+<th>ls_type</th>
+<th>Mem2Reg</th>
+<th>RegWrite</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>作用阶段</td>
+<td>EX</td>
+<td>ID</td>
+<td>ID</td>
+<td>ID</td>
+<td>ID</td>
+<td>ID</td>
+<td>EX</td>
+<td>EX</td>
+<td>MA</td>
+<td>MA</td>
+<td>WB</td>
+<td>WB</td>
+</tr>
+<tr>
+<td>IF_ID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ID_EX</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>EX_MA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MA_WB</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h4 id="Stall-Explain"><a href="#Stall-Explain" class="headerlink" title="Stall Explain"></a>Stall Explain</h4><p>ID级指令静止，EX级插入一个nop</p>
+<ul>
+<li>PC不写入新数据</li>
+<li>IF_ID寄存器不写入新数据</li>
+<li>ID_EX寄存器清零，即插入nop(0x00000000)</li>
+</ul>
+<h4 id="Logic"><a href="#Logic" class="headerlink" title="Logic"></a>Logic</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Stage_Reg(</span><br><span class="line">		<span class="keyword">input</span> clk,</span><br><span class="line">		<span class="keyword">input</span> reset,</span><br><span class="line">		<span class="keyword">input</span> en,</span><br><span class="line">		<span class="keyword">input</span> clr,</span><br><span class="line">		<span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] data,</span><br><span class="line">		<span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] data_out</span><br><span class="line">    );</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">			data_out &lt;= <span class="number">0</span>;</span><br><span class="line">	 <span class="keyword">end</span></span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (reset || clr) <span class="keyword">begin</span></span><br><span class="line">			 data_out &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">			<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">				data_out &lt;= data;</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	 <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="信号解释"><a href="#信号解释" class="headerlink" title="信号解释"></a>信号解释</h2><h4 id="jumpSrc-2-bit"><a href="#jumpSrc-2-bit" class="headerlink" title="jumpSrc (2-bit)"></a>jumpSrc (2-bit)</h4><table>
+<thead>
+<tr>
+<th>jumpSrc</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2’b00</td>
+<td>branch</td>
+</tr>
+<tr>
+<td>2’b01</td>
+<td>jump</td>
+</tr>
+<tr>
+<td>2’b10</td>
+<td>jr</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> next_pc_ID = (jumpSrc_ID == <span class="number">2&#x27;b00</span>) ? branch_offset_ID:</span><br><span class="line">                    (jumpSrc_ID == <span class="number">2&#x27;b01</span>) ? jumpExt32_ID:</span><br><span class="line">                    (jumpSrc_ID == <span class="number">2&#x27;b10</span>) ? RD1_ID_valid: <span class="number">32&#x27;h404</span>; </span><br></pre></td></tr></table></figure>
+
+<h4 id="Mem2Reg-2-bit"><a href="#Mem2Reg-2-bit" class="headerlink" title="Mem2Reg (2-bit)"></a>Mem2Reg (2-bit)</h4><table>
+<thead>
+<tr>
+<th>Mem2Reg</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2‘b00</td>
+<td>ALU</td>
+</tr>
+<tr>
+<td>2’b01</td>
+<td>lw</td>
+</tr>
+<tr>
+<td>2’b10</td>
+<td>link</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> grf_WD = (Mem2Reg_WB == <span class="number">2&#x27;b00</span>) ? ALU_C_WB :</span><br><span class="line">				 (Mem2Reg_WB == <span class="number">2&#x27;b01</span>) ? dm_data_WB :</span><br><span class="line">				 (Mem2Reg_WB == <span class="number">2&#x27;b10</span>) ? pc_add4_WB + <span class="number">32&#x27;d4</span> : <span class="number">32&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="RegDst-2-bit"><a href="#RegDst-2-bit" class="headerlink" title="RegDst (2-bit)"></a>RegDst (2-bit)</h4><table>
+<thead>
+<tr>
+<th>RegDst</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2’b00</td>
+<td>无需写入寄存器的指令</td>
+</tr>
+<tr>
+<td>2’b01</td>
+<td>R-type，写入rd寄存器</td>
+</tr>
+<tr>
+<td>2’b10</td>
+<td>I-type，写入rt寄存器</td>
+</tr>
+<tr>
+<td>2’b11</td>
+<td>link，写入$ra ($31)</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> A3_EX =  (RegDst_EX == <span class="number">2&#x27;b00</span>)? <span class="number">5&#x27;b0</span>: <span class="comment">//null</span></span><br><span class="line">                (RegDst_EX == <span class="number">2&#x27;b01</span>)? RD_EX:</span><br><span class="line">				(RegDst_EX == <span class="number">2&#x27;b10</span>)? RT_EX:</span><br><span class="line">                (RegDst_EX == <span class="number">2&#x27;b11</span>)? <span class="number">5&#x27;h1f</span>:</span><br><span class="line">				<span class="number">5&#x27;b00000</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ALU-4-bit"><a href="#ALU-4-bit" class="headerlink" title="ALU (4-bit)"></a>ALU (4-bit)</h4><table>
+<thead>
+<tr>
+<th>ALU</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4’b0000</td>
+<td>add</td>
+</tr>
+<tr>
+<td>4’b0001</td>
+<td>sub</td>
+</tr>
+<tr>
+<td>4’b0010</td>
+<td>or</td>
+</tr>
+<tr>
+<td>4’b0011</td>
+<td>lui</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span>(F)</span><br><span class="line">            `ADD:    C = A + B;</span><br><span class="line">            `SUB:    C = A - B;</span><br><span class="line">            `OR:     C = A | B;</span><br><span class="line">            `SL16:   C = B &lt;&lt; <span class="number">16</span>;</span><br><span class="line">            <span class="keyword">default</span>:C = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">    <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试方案"><a href="#测试方案" class="headerlink" title="测试方案"></a>测试方案</h2><h3 id="指令分类"><a href="#指令分类" class="headerlink" title="指令分类"></a>指令分类</h3><h4 id="R-type"><a href="#R-type" class="headerlink" title="R-type"></a>R-type</h4><ul>
+<li><em><strong>ALU型指令（Grd &lt;- Grs ? Grt）</strong></em>——（add、sub、or）</li>
+<li><em><strong>ALU型指令（Grd &lt;- Grt ？ shamt）</strong></em>——（sll、srl、sra）</li>
+<li><em><strong>跳转型指令（PC &lt;- Grs）</strong></em>——（jr）</li>
+</ul>
+<h4 id="I-type"><a href="#I-type" class="headerlink" title="I-type"></a>I-type</h4><ul>
+<li><em><strong>ALU-Imm型指令（Grt &lt;- Grs ？ imm）</strong></em>——（ori、lui）</li>
+<li><em><strong>Memory-Store型指令（Memory[Grs + offset] &lt;- Grt）</strong></em>——（sw、sb、sh）</li>
+<li><em><strong>Memory-load型指令（Grt &lt;- Memory[Grs + offset]）</strong></em>——（lw、lb、lbu、lh）</li>
+<li><em><strong>Branch型指令（Grs ? Grt，PC &lt;- PC + 4 + offset）</strong></em>——（beq、bgez、bgtz、blez、bltz、bne）</li>
+</ul>
+<h4 id="J-type"><a href="#J-type" class="headerlink" title="J-type"></a>J-type</h4><ul>
+<li><em><strong>J-link型指令</strong></em> —— (jal)</li>
+<li><em><strong>无条件Jump型指令</strong></em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>IF级</th>
+<th>ID级</th>
+<th>EX级</th>
+<th>MA级</th>
+<th>WB级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><strong>R-ALU</strong></em></td>
+<td></td>
+<td>读取数据（Grs、Grt）</td>
+<td>计算数据</td>
+<td></td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><em><strong>R-jump</strong></em></td>
+<td></td>
+<td>读取数据并跳转</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>I-imm</strong></em></td>
+<td></td>
+<td>读取数据（Grt、imm）</td>
+<td>计算数据</td>
+<td></td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><em><strong>I-store</strong></em></td>
+<td></td>
+<td>读取数据（Grs+offset、Grt）</td>
+<td>计算数据（地址）</td>
+<td>写入数据</td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>I-load</strong></em></td>
+<td></td>
+<td>读取数据（Grs+offset、Grt）</td>
+<td>计算数据（地址）</td>
+<td>读取数据</td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><em><strong>I-branch</strong></em></td>
+<td></td>
+<td>读取数据（Grs、Grt）比较数据并跳转</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>J-link</strong></em></td>
+<td></td>
+<td>扩展数据并跳转</td>
+<td>传递跳转PC</td>
+<td>传递跳转PC</td>
+<td>写入pc+8</td>
+</tr>
+</tbody></table>
+<h3 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h3><ol>
+<li>编写测试代码<ul>
+<li>包括所有阻塞情况</li>
+<li>测试所有转发通路</li>
+<li>可利用课程组提供的分析工具对代码测试强度进行评估</li>
+</ul>
+</li>
+<li>将ISE输出与Mars输出比对<ul>
+<li>可利用同学开发评测机进行快速比对</li>
+</ul>
+</li>
+<li>大量随机数据强测<ul>
+<li>代码生成思路参照<a target="_blank" rel="noopener" href="http://cscore.buaa.edu.cn/#/discussion_area/1482/1793/posts">P4数据生成思路</a></li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random  </span><br><span class="line">  </span><br><span class="line">SUPPORTED_INSTRUCTIONS = [  </span><br><span class="line">    <span class="string">&quot;add&quot;</span>, <span class="string">&quot;sub&quot;</span>, <span class="string">&quot;and&quot;</span>, <span class="string">&quot;ori&quot;</span>, <span class="string">&quot;lui&quot;</span>,  <span class="comment"># arithmetic  </span></span><br><span class="line">    <span class="string">&quot;lw&quot;</span>, <span class="string">&quot;sw&quot;</span>,  <span class="comment"># storage  </span></span><br><span class="line">    <span class="string">&quot;beq&quot;</span>, <span class="string">&quot;bne&quot;</span>,  <span class="comment"># B-type  </span></span><br><span class="line">    <span class="string">&quot;j&quot;</span>, <span class="string">&quot;jal&quot;</span>,  <span class="comment"># jump  </span></span><br><span class="line">    <span class="string">&quot;nop&quot;</span>  </span><br><span class="line">    <span class="comment"># command jr will be generated according to the use of command jal  </span></span><br><span class="line">]  </span><br><span class="line">REGISTERS = [<span class="string">f&quot;$<span class="subst">&#123;i&#125;</span>&quot;</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>) <span class="keyword">if</span> i != <span class="number">1</span> <span class="keyword">and</span> i &lt; <span class="number">26</span>]  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">weighted_choice</span>():  </span><br><span class="line">    <span class="keyword">return</span> random.choices(REGISTERS, weights=REGISTER_WEIGHTS, k=<span class="number">1</span>)[<span class="number">0</span>]  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_random_instruction</span>(<span class="params">half</span>):  </span><br><span class="line">    instruction = random.choice(SUPPORTED_INSTRUCTIONS)  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> instruction <span class="keyword">in</span> [<span class="string">&quot;add&quot;</span>, <span class="string">&quot;sub&quot;</span>, <span class="string">&quot;and&quot;</span>]:  </span><br><span class="line">        <span class="comment"># add $t0, $t1, $t2 : op rd, rs, rt  </span></span><br><span class="line">        rd = weighted_choice()  </span><br><span class="line">        rs = weighted_choice()  </span><br><span class="line">        rt = weighted_choice()  </span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;<span class="subst">&#123;instruction&#125;</span> <span class="subst">&#123;rd&#125;</span>, <span class="subst">&#123;rs&#125;</span>, <span class="subst">&#123;rt&#125;</span>&quot;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="comment"># other instructions...  </span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():  </span><br><span class="line">    <span class="comment"># parser...  </span></span><br><span class="line">  </span><br><span class="line">    high_weight_registers = random.sample(REGISTERS, <span class="number">4</span>)  </span><br><span class="line">    <span class="comment"># print(f&quot;High weight registers: &#123;high_weight_registers&#125;&quot;)  </span></span><br><span class="line">    <span class="keyword">global</span> REGISTER_WEIGHTS  </span><br><span class="line">    REGISTER_WEIGHTS = [<span class="number">4</span> <span class="keyword">if</span> reg <span class="keyword">in</span> high_weight_registers <span class="keyword">else</span> <span class="number">1</span> <span class="keyword">for</span> reg <span class="keyword">in</span> REGISTERS]  </span><br><span class="line">  </span><br><span class="line">    mips_code = generate_mips_code(args.num_instructions)</span><br></pre></td></tr></table></figure>
+
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><ol>
+<li>我们使用提前分支判断的方法尽早产生结果来减少因不确定而带来的开销，但实际上这种方法并非总能提高效率，请从流水线冒险的角度思考其原因并给出一个指令序列的例子。</li>
+</ol>
+<blockquote>
+<p>提前分支判断会带增加阻塞的情况，从而降低效率</p>
+<p>lw $1, 0($0)<br>ori $2, $0, 514	<br>beq $1, $2, label</p>
+<p>对于上述代码，需要阻塞两次</p>
+</blockquote>
+<ol start="2">
+<li>因为延迟槽的存在，对于 jal 等需要将指令地址写入寄存器的指令，要写回 PC + 8，请思考为什么这样设计？</li>
+</ol>
+<blockquote>
+<p>因为，jr返回时应该执行延迟槽后面的指令</p>
+</blockquote>
+<ol start="3">
+<li>我们要求所有转发数据都来源于流水寄存器而不能是功能部件（如 DM、ALU），请思考为什么？</li>
+</ol>
+<blockquote>
+<p>减少组合逻辑与时序逻辑的组合，减少毛刺，使流水线分级更清晰</p>
+</blockquote>
+<ol start="4">
+<li>我们为什么要使用 GPR 内部转发？该如何实现？</li>
+</ol>
+<blockquote>
+<p>解决结构冒险。由于流水线中grf的读写在不同级，所以当同时读和写grf时会出现结构冒险</p>
+<p>assign RD1 &#x3D; (A3!&#x3D;0 &amp; A1=&#x3D;A3 &amp; WE) ? WD : grf[A1];<br>assign RD2 &#x3D; (A3!&#x3D;0 &amp; A2=&#x3D;A3 &amp; WE) ? WD : grf[A2];</p>
+</blockquote>
+<ol start="5">
+<li>我们转发时数据的需求者和供给者可能来源于哪些位置？共有哪些转发数据通路？</li>
+</ol>
+<blockquote>
+<p>见上文</p>
+</blockquote>
+<ol start="6">
+<li>在课上测试时，我们需要你现场实现新的指令，对于这些新的指令，你可能需要在原有的数据通路上做哪些扩展或修改？提示：你可以对指令进行分类，思考每一类指令可能修改或扩展哪些位置。</li>
+</ol>
+<blockquote>
+<ol>
+<li>添加控制信号</li>
+<li>可能需要修改ALU</li>
+<li>修改顶层模块，可能需要添加wire</li>
+<li>可能需要修改阻塞逻辑</li>
+</ol>
+</blockquote>
+<ol start="7">
+<li>简要描述你的译码器架构，并思考该架构的优势以及不足。、</li>
+</ol>
+<blockquote>
+<p>集中式译码。只需一次译码，然后流水各个信号。<br>优势：资源占用小，代码量小<br>不足：流水信号比较麻烦，添加控制信号时比较麻烦</p>
+</blockquote>
+<ol start="8">
+<li>[P5 选做] 请详细描述你的测试方案及测试数据构造策略。</li>
+</ol>
+<blockquote>
+<p>见测试方案</p>
+</blockquote>
+<ol start="9">
+<li>[P5、P6 选做] 请评估我们给出的覆盖率分析模型的合理性，如有更好的方案，可一并提出。</li>
+</ol>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CO-P5-设计文档</p><p><a href="https://lhy0424.top/2024/12/19/P5-设计文档/">https://lhy0424.top/2024/12/19/P5-设计文档/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Az</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-12-19</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-12-20</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">CO-P6-设计文档</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><span class="level-item">CO-P4-设计文档</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/az.jpg" alt="Az"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Az</p><p class="is-size-6 is-block">BUAA 2306</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>安徽 阜阳</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/Accepted0424" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/Accepted0424"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg" alt="CO-P7-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T16:01:27.479Z">2024-12-20</time></p><p class="title"><a href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P7-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg" alt="CO-P6-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T16:01:22.392Z">2024-12-20</time></p><p class="title"><a href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P6-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg" alt="CO-P5-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:55.784Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P5-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P4_cover.jpg" alt="CO-P4-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:51.083Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P4-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P3_cover.jpg" alt="CO-P3-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:45.601Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P3-设计文档</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">十一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/10/"><span class="level-start"><span class="level-item">十月 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/07/"><span class="level-start"><span class="level-item">七月 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Az&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Az</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

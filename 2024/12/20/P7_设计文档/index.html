@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>CO-P7-设计文档 - Az&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Az&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Az&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="2024计算机组成原理P7设计文档"><meta property="og:type" content="blog"><meta property="og:title" content="CO-P7-设计文档"><meta property="og:url" content="https://lhy0424.top/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><meta property="og:site_name" content="Az&#039;s Blog"><meta property="og:description" content="2024计算机组成原理P7设计文档"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://lhy0424.top/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg"><meta property="article:published_time" content="2024-12-19T16:01:27.479Z"><meta property="article:modified_time" content="2024-12-19T16:32:48.407Z"><meta property="article:author" content="Az"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://lhy0424.top/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://lhy0424.top/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"},"headline":"CO-P7-设计文档","image":["https://lhy0424.top/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg"],"datePublished":"2024-12-19T16:01:27.479Z","dateModified":"2024-12-19T16:32:48.407Z","author":{"@type":"Person","name":"Az"},"publisher":{"@type":"Organization","name":"Az's Blog","logo":{"@type":"ImageObject","url":"https://lhy0424.top/img/logo.svg"}},"description":"2024计算机组成原理P7设计文档"}</script><link rel="canonical" href="https://lhy0424.top/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Az&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg" alt="CO-P7-设计文档"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-12-19T16:01:27.479Z" title="2024/12/20 00:01:27">2024-12-20</time>发表</span><span class="level-item"><time dateTime="2024-12-19T16:32:48.407Z" title="2024/12/20 00:32:48">2024-12-20</time>更新</span><span class="level-item">41 分钟读完 (大约6207个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">CO-P7-设计文档</h1><div class="content"><p>2024计算机组成原理P7设计文档</p>
+<span id="more"></span>
+
+<h1 id="P7-MIPS微系统"><a href="#P7-MIPS微系统" class="headerlink" title="P7_MIPS微系统"></a>P7_MIPS微系统</h1><h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="异常程序处理"><a href="#异常程序处理" class="headerlink" title="异常程序处理"></a>异常程序处理</h3><p>先要明白一点，Mars不会帮你处理中断异常，Mars遇到异常指令或中断信号会跳至中断异常处理程序（0x4180之后），如何处理中断异常完全由0x4180之后的代码决定。</p>
+<p>先看课程组给出的示例程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 程序首先从这里运行</span></span><br><span class="line">.text</span><br><span class="line">    <span class="comment"># 只允许外部中断</span></span><br><span class="line">    ori <span class="variable">$t0</span>, <span class="variable">$0</span>, 0x1001</span><br><span class="line">    mtc0 <span class="variable">$t0</span>, <span class="variable">$12</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 算术溢出</span></span><br><span class="line">    lui <span class="variable">$t0</span>, 0x7fff</span><br><span class="line">    lui <span class="variable">$t1</span>, 0x7fff</span><br><span class="line">    add <span class="variable">$t2</span>, <span class="variable">$t0</span>, <span class="variable">$t1</span></span><br><span class="line"></span><br><span class="line">end:</span><br><span class="line">    beq <span class="variable">$0</span>, <span class="variable">$0</span>, end</span><br><span class="line">    nop</span><br><span class="line"></span><br><span class="line">.ktext 0x4180</span><br><span class="line">_entry:</span><br><span class="line">    <span class="comment"># 保存上下文</span></span><br><span class="line">    j _save_context</span><br><span class="line">    nop</span><br><span class="line"></span><br><span class="line">_main_handler:</span><br><span class="line">    <span class="comment"># 取出 ExcCode</span></span><br><span class="line">    mfc0 <span class="variable">$k0</span>, <span class="variable">$13</span></span><br><span class="line">    ori <span class="variable">$k1</span>, <span class="variable">$0</span>, 0x7c</span><br><span class="line">    and <span class="variable">$k0</span>, <span class="variable">$k0</span>, <span class="variable">$k1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果是中断，直接恢复上下文</span></span><br><span class="line">    beq <span class="variable">$k0</span>, <span class="variable">$0</span>, _restore_context</span><br><span class="line">    nop</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将 EPC + 4，即处理异常的方法就是跳过当前指令</span></span><br><span class="line">    mfc0 <span class="variable">$k0</span>, <span class="variable">$14</span></span><br><span class="line">    addu <span class="variable">$k0</span>, <span class="variable">$k0</span>, 4</span><br><span class="line">    mtc0 <span class="variable">$k0</span>, <span class="variable">$14</span></span><br><span class="line">    j _restore_context</span><br><span class="line">    nop</span><br><span class="line"></span><br><span class="line">_exception_return:</span><br><span class="line">    eret</span><br><span class="line"></span><br><span class="line">_save_context:</span><br><span class="line">    ori <span class="variable">$k0</span>, <span class="variable">$0</span>, 0x1000     <span class="comment"># 在栈上找一块空间保存现场</span></span><br><span class="line">    addiu <span class="variable">$k0</span>, <span class="variable">$k0</span>, -256</span><br><span class="line">    sw <span class="variable">$sp</span>, 116(<span class="variable">$k0</span>)        <span class="comment"># 最先保存栈指针</span></span><br><span class="line">    move <span class="variable">$sp</span>, <span class="variable">$k0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 依次保存通用寄存器（注意要跳过 $sp）、HI 和 LO</span></span><br><span class="line">    sw <span class="variable">$1</span>, 4(<span class="variable">$sp</span>)</span><br><span class="line">    sw <span class="variable">$2</span>, 8(<span class="variable">$sp</span>)</span><br><span class="line">    <span class="comment"># ......</span></span><br><span class="line">    sw <span class="variable">$31</span>, 124(<span class="variable">$sp</span>)</span><br><span class="line">    mfhi <span class="variable">$k0</span></span><br><span class="line">    mflo <span class="variable">$k1</span></span><br><span class="line">    sw <span class="variable">$k0</span>, 128(<span class="variable">$sp</span>)</span><br><span class="line">    sw <span class="variable">$k1</span>, 132(<span class="variable">$sp</span>)</span><br><span class="line"></span><br><span class="line">    j _main_handler</span><br><span class="line">    nop</span><br><span class="line"></span><br><span class="line">_restore_context:</span><br><span class="line">    <span class="comment"># 依次恢复通用寄存器（注意要跳过 $sp）、 HI 和 LO</span></span><br><span class="line">    lw <span class="variable">$1</span>, 4(<span class="variable">$sp</span>)</span><br><span class="line">    lw <span class="variable">$2</span>, 8(<span class="variable">$sp</span>)</span><br><span class="line">    <span class="comment"># ......</span></span><br><span class="line">    lw <span class="variable">$31</span>, 124(<span class="variable">$sp</span>)</span><br><span class="line">    lw <span class="variable">$k0</span>, 128(<span class="variable">$sp</span>)</span><br><span class="line">    lw <span class="variable">$k1</span>, 132(<span class="variable">$sp</span>)</span><br><span class="line">    mthi <span class="variable">$k0</span></span><br><span class="line">    mtlo <span class="variable">$k1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 最后恢复栈指针</span></span><br><span class="line">    lw <span class="variable">$sp</span>, 116(<span class="variable">$sp</span>)</span><br><span class="line"></span><br><span class="line">    j _exception_return</span><br><span class="line">    nop</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h4><ul>
+<li><p><strong>.text:</strong>  Subsequent items (instructions) stored in Text segment at next available address.随后的条目（指令）存储在文本段的下一个可用地址中。普通的用户模式下的代码段，简单来说就是存指令的地方。</p>
+</li>
+<li><p><strong>.ktext:</strong>  Subsequent items stored in Kernel Text segment at next available address.随后的条目存储在内核文本段的下一个可用地址中。即内核模式下的代码段，内核模式下运行，具有最高权限，可以直接访问硬件和受保护的资源。对于p7来说就是存放异常处理程序的地方。</p>
+</li>
+<li><p>异常包括很多种类型，中断和异常也不同，不同的异常或中断处理方式不一样，因此我们需要记录下异常或中断的信息，然后用特定方式处理异常，这就是CP0（协处理器）的作用。</p>
+</li>
+<li><p>进入中断异常处理程序后，我们先从CP0中获取异常或中断信息，然后跳转至不同的地方处理异常中断，一般最后都会跳转到eret，返回主程序。</p>
+</li>
+</ul>
+<h3 id="CPU与外设的交互"><a href="#CPU与外设的交互" class="headerlink" title="CPU与外设的交互"></a>CPU与外设的交互</h3><p>CPU的作用就是对外界输入数据做出对应的处理后返回结果。</p>
+<h4 id="外设"><a href="#外设" class="headerlink" title="外设"></a>外设</h4><p>对于p7，我们有三个外设需要处理。这三个外设的作用就是时不时向cpu发出一个中断信号。</p>
+<ul>
+<li>计时器（Timer）：计算机系统中的计时部件，可以按照配置定时地产生时钟中断。</li>
+<li>存储器（Memory）：计算机系统中的存储部件，用于存储指令和数据。我们在 P6 的时候已经接触过了。</li>
+<li>中断发生器（InterruptGenerator）：抽象的计算机系统外设，会随机的产生外部中断信号，产生的中断信号在 CPU 响应前会持续置高。</li>
+</ul>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><ul>
+<li><p>我们可以认为内存也是一种外设。</p>
+</li>
+<li><p>我们可以认为指令、数据、异常处理程序、外设寄存器等都是储存在同一内存中，只不过存储的位置不同，有着严格的界限。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>条目</strong></th>
+<th><strong>地址或地址范围</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据存储器</td>
+<td><em><strong>0x0000_0000</strong></em>∼<em><strong>0x0000_2FFF</strong></em></td>
+<td></td>
+</tr>
+<tr>
+<td>指令存储器</td>
+<td>*** 0x0000_3000<em><strong>∼</strong></em>0x0000_6FFF***</td>
+<td></td>
+</tr>
+<tr>
+<td>PC 初始值</td>
+<td><em><strong>0x0000_3000</strong></em></td>
+<td></td>
+</tr>
+<tr>
+<td>异常处理程序入口地址</td>
+<td><em><strong>0x0000_4180</strong></em></td>
+<td></td>
+</tr>
+<tr>
+<td>计时器 0 寄存器地址</td>
+<td><em><strong>0x0000_7F00</strong></em>∼<em><strong>0x0000_7F0B</strong></em></td>
+<td>计时器 0 的 3 个寄存器</td>
+</tr>
+<tr>
+<td>计时器 1 寄存器地址</td>
+<td><em><strong>0x0000_7F10</strong></em>∼<em><strong>0x0000_7F1B</strong></em></td>
+<td>计时器 1 的 3 个寄存器</td>
+</tr>
+<tr>
+<td>中断发生器响应地址</td>
+<td><em><strong>0x0000_7F20</strong></em>∼<em><strong>0x0000_7F23</strong></em></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="宏观PC"><a href="#宏观PC" class="headerlink" title="宏观PC"></a>宏观PC</h3><p>对于流水线寄存器，每一流水级的PC都不同。我们希望CPU实现的功能应该是单周期的，引入多周期只是为了提高效率。如果我们把CPU封装起来，不关注内部的复杂过程，在外部看来CPU应该只有一个PC，即CPU一个周期仅执行一条指令。为此我们需要引入宏观PC的概念。</p>
+<ul>
+<li>我们将 CP0 放在 M 级（大家都放在M级，方便对拍），因此也以 M 级为界线，规定 M 级的 PC 就是宏观 PC。</li>
+<li><strong>所谓“宏观”指令，表示该指令之前的所有指令序列对 CPU 的更新已完成，该指令及其之后的指令序列对 CPU 的更新未完成。</strong>放在M级显然满足这个定义。</li>
+</ul>
+<h2 id="Tasks"><a href="#Tasks" class="headerlink" title="Tasks"></a>Tasks</h2><h3 id="Task-1-建立与外界的联系"><a href="#Task-1-建立与外界的联系" class="headerlink" title="Task-1: 建立与外界的联系"></a>Task-1: 建立与外界的联系</h3><h4 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h4><ul>
+<li>Timer内部有三个寄存器: 0号寄存器ctrl、1号寄存器preset、2号寄存器count。虽然说是寄存器，但我们可以认为其实内存的一部分。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0号寄存器ctrl</th>
+<th>1号寄存器preset</th>
+<th>2号寄存器count</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TC1</td>
+<td><em><strong>0x0000_7F00</strong></em>∼<em><strong>0x0000_7F03</strong></em></td>
+<td><em><strong>0x0000_7F04</strong></em>∼<em><strong>0x0000_7F07</strong></em></td>
+<td><em><strong>0x0000_7F08</strong></em>∼<em><strong>0x0000_7F0b</strong></em></td>
+</tr>
+<tr>
+<td>TC2</td>
+<td><em><strong>0x0000_7F10</strong></em>∼<em><strong>0x0000_7F13</strong></em></td>
+<td><em><strong>0x0000_7F14</strong></em>∼<em><strong>0x0000_7F17</strong></em></td>
+<td><em><strong>0x0000_7F18</strong></em>∼<em><strong>0x0000_7F1b</strong></em></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>我们可以通过sw指令向对应Timer寄存器中存值以开启计时并调整倒计时。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MODE 0 for timer1</span></span><br><span class="line">ori <span class="variable">$t1</span> <span class="variable">$0</span> 9 <span class="comment">#设置计时使能和中断屏蔽</span></span><br><span class="line">sw <span class="variable">$t1</span> 0x7F00(<span class="variable">$0</span>)</span><br><span class="line">ori <span class="variable">$t1</span> <span class="variable">$0</span> 1 <span class="comment">#设置计时数</span></span><br><span class="line">sw <span class="variable">$t1</span> 0x7F04(<span class="variable">$0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># MODE 1 for timer1</span></span><br><span class="line">ori <span class="variable">$t1</span> <span class="variable">$0</span> 11 <span class="comment">#设置计时使能和中断屏蔽</span></span><br><span class="line">sw <span class="variable">$t1</span> 0x7F00(<span class="variable">$0</span>)</span><br><span class="line">ori <span class="variable">$t1</span> <span class="variable">$0</span> 10 <span class="comment">#设置计时数</span></span><br><span class="line">sw <span class="variable">$t1</span> 0x7F04(<span class="variable">$0</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Task-2-记录异常并流水"><a href="#Task-2-记录异常并流水" class="headerlink" title="Task-2: 记录异常并流水"></a>Task-2: 记录异常并流水</h3><ul>
+<li>where CP0: M级。</li>
+<li>延迟槽指令: 如果一个处于延迟槽的指令发生了异常，我们从异常处理程序中返回时需要回到它的上一个指令（跳转指令）。因此我们需要增加判断一个信号用于判断指令是否在延迟槽中，并向后流水传至CP0。（branch、jump、jal、jr在ID级，IF级的指令即处于延迟槽中）。</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> BD_IF = ((branch_ID === <span class="number">1&#x27;b1</span>) || (jump_ID === <span class="number">1&#x27;b1</span>))? <span class="number">1&#x27;b1</span>:</span><br><span class="line">			   <span class="number">1&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>内部异常和外部中断：同时发生时处理外部中断，当内部无异常时设为Int(外部中断)。</li>
+<li>一条指令多个异常 &amp; 多个指令异常：<strong>优先处理最早可以探查到的异常</strong>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">异常与中断码</th>
+<th align="left">助记符与名称</th>
+<th align="left">指令与指令类型</th>
+<th align="left">描述</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="left"><code>Int</code> （外部中断）</td>
+<td align="left">所有指令</td>
+<td align="left">中断请求，来源于计时器与外部中断。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取指异常）</td>
+<td align="left">所有指令</td>
+<td align="left">PC 地址未字对齐。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取指异常）</td>
+<td align="left">所有指令</td>
+<td align="left">PC 地址超过 <code>0x3000 ~ 0x6ffc</code>。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取数异常）</td>
+<td align="left"><code>lw</code></td>
+<td align="left">取数地址未与 4 字节对齐。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取数异常）</td>
+<td align="left"><code>lh</code></td>
+<td align="left">取数地址未与 2 字节对齐。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取数异常）</td>
+<td align="left"><code>lh</code>, <code>lb</code></td>
+<td align="left">取 Timer 寄存器的值。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取数异常）</td>
+<td align="left">load 型指令</td>
+<td align="left">计算地址时加法溢出。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><code>AdEL</code> （取数异常）</td>
+<td align="left">load 型指令</td>
+<td align="left">取数地址超出 DM、Timer0、Timer1、中断发生器的范围。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><code>AdES</code> （存数异常）</td>
+<td align="left"><code>sw</code></td>
+<td align="left">存数地址未 4 字节对齐。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><code>AdES</code> （存数异常）</td>
+<td align="left"><code>sh</code></td>
+<td align="left">存数地址未 2 字节对齐。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><code>AdES</code> （存数异常）</td>
+<td align="left"><code>sh</code>, <code>sb</code></td>
+<td align="left">存 Timer 寄存器的值。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><code>AdES</code> （存数异常）</td>
+<td align="left">store 型指令</td>
+<td align="left">计算地址加法溢出。</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><code>AdES</code> （存数异常）</td>
+<td align="left">store 型指令</td>
+<td align="left">向计时器的 Count 寄存器存值。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><code>AdES</code> （存数异常）</td>
+<td align="left">store 型指令</td>
+<td align="left">存数地址超出 DM、Timer0、Timer1、中断发生器的范围。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><code>Syscall</code> （系统调用）</td>
+<td align="left"><code>syscall</code></td>
+<td align="left">系统调用。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><code>RI</code>（未知指令）</td>
+<td align="left">-</td>
+<td align="left">未知的指令码。</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left"><code>Ov</code>（溢出异常）</td>
+<td align="left"><code>add</code>, <code>addi</code>, <code>sub</code></td>
+<td align="left">算术溢出。</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h4 id="IF级"><a href="#IF级" class="headerlink" title="IF级"></a>IF级</h4><ul>
+<li>PC 地址未字对齐 <code>AdEL</code></li>
+<li>PC 地址超过 0x3000 ~ 0x6ffc  <code>AdEL</code></li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in PC module</span></span><br><span class="line"><span class="keyword">assign</span> exc = ((pc &lt; <span class="number">32&#x27;h3000</span>) || (pc &gt; <span class="number">32&#x27;h6ffc</span>))? <span class="number">4&#x27;d4</span>:</span><br><span class="line">			 (pc[<span class="number">1</span>:<span class="number">0</span>] != <span class="number">2&#x27;b0</span>)? <span class="number">4&#x27;d4</span>: <span class="number">4&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ID级"><a href="#ID级" class="headerlink" title="ID级"></a>ID级</h4><ul>
+<li>未知的指令码 <code>RI</code></li>
+<li>syscall 对于syscall指令我们只需发出一个异常信号即可  <code>syscall</code></li>
+</ul>
+<p>如果有if嵌套，注意内部if对应的else也需要判断为未知指令。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in controller module</span></span><br><span class="line"><span class="keyword">if</span> (OpCode == xxxxxx) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (Funct == xxxxxx) <span class="keyword">begin</span></span><br><span class="line">       <span class="comment">//ctrl signal assignment </span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="comment">//exception RI</span></span><br><span class="line">		exc = <span class="number">4&#x27;d10</span>; </span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (OpCode == xxxxxx) <span class="keyword">begin</span></span><br><span class="line">    <span class="comment">//ctrl signal assignment </span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">    <span class="comment">//exception RI</span></span><br><span class="line">	exc = <span class="number">4&#x27;d10</span>; </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="EX级"><a href="#EX级" class="headerlink" title="EX级"></a>EX级</h4><ul>
+<li>算术溢出 <code>OV</code></li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] A_ext = &#123;A[<span class="number">31</span>],A&#125;;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] B_ext = &#123;B[<span class="number">31</span>],B&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] addi_temp = A_ext + B_ext;</span><br><span class="line"><span class="keyword">wire</span> addi_overflow = ((F == `ADDI) &amp;&amp; (addi_temp[<span class="number">32</span>] != addi_temp[<span class="number">31</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] add_temp = A_ext + B_ext;</span><br><span class="line"><span class="keyword">wire</span> add_overflow = ((F == `ADD) &amp;&amp; (add_temp[<span class="number">32</span>] != add_temp[<span class="number">31</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] sub_temp = A_ext - B_ext;</span><br><span class="line"><span class="keyword">wire</span> sub_overflow = ((F == `SUB) &amp;&amp; (sub_temp[<span class="number">32</span>] != sub_temp[<span class="number">31</span>]));</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> exc = (addi_overflow | add_overflow | sub_overflow)? <span class="number">4&#x27;d12</span>: <span class="number">4&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="MA级"><a href="#MA级" class="headerlink" title="MA级"></a>MA级</h4><ul>
+<li>load类指令<ul>
+<li>lw取数地址未与 4 字节对齐 <code>AdEL</code></li>
+<li>lh、lb取数地址未与 2 字节对齐  <code>AdEL</code></li>
+<li>lh、lb取 Timer 寄存器的值：寄存器的值为32位，取半字或比特是非法行为非法  <code>AdEL</code></li>
+<li>计算地址时加法溢出 <code>AdEL</code></li>
+<li>取数地址超出 DM、Timer0、Timer1、中断发生器的范围 <code>AdEL</code></li>
+</ul>
+</li>
+<li>store类指令<ul>
+<li>sw存数地址未 4 字节对齐 <code>AdES</code> </li>
+<li>sh、sb存数地址未 2 字节对齐 <code>AdES</code> </li>
+<li>sh、sb存 Timer 寄存器的值 ：寄存器的值为32位，存半字或比特是非法行为非法 <code>AdES</code> </li>
+<li>计算地址加法溢出 <code>AdES</code> </li>
+<li>向计时器的 Count 寄存器存值 ：计时器的count寄存器是只读寄存器(read-only) <code>AdES</code> </li>
+<li>存数地址超出 DM、Timer0、Timer1、中断发生器的范围 <code>AdES</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//load EXC</span></span><br><span class="line"><span class="keyword">wire</span> exc_load_align = (((load_type_MA == <span class="number">3&#x27;b111</span>) &amp;&amp; (byte_offset != <span class="number">2&#x27;b00</span>)) || <span class="comment">//lw</span></span><br><span class="line">						  ((load_type_MA == <span class="number">3&#x27;b100</span>) &amp;&amp; (byte_offset[<span class="number">0</span>] != <span class="number">1&#x27;b0</span>))); <span class="comment">//lh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> exc_load_adov = (load_type_MA &amp;&amp; (EX_EXCCode_pip_MA == <span class="number">4&#x27;d12</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> exc_load_OutOfRange = !(((ALU_C_MA &gt;= <span class="number">32&#x27;h0</span>) &amp;&amp; (ALU_C_MA &lt;= <span class="number">32&#x27;h2fff</span>)) || <span class="comment">//DM</span></span><br><span class="line">								  ((ALU_C_MA &gt;= <span class="number">32&#x27;h7f00</span>) &amp;&amp; (ALU_C_MA &lt;= <span class="number">32&#x27;h7f0b</span>)) || <span class="comment">//TC0</span></span><br><span class="line">								  ((ALU_C_MA &gt;= <span class="number">32&#x27;h7f10</span>) &amp;&amp; (ALU_C_MA &lt;= <span class="number">32&#x27;h7f1b</span>))); <span class="comment">//TC1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> exc_load_timer = ((load_type_MA == <span class="number">3&#x27;b100</span> || load_type_MA == <span class="number">3&#x27;b010</span>) &amp;&amp; ALU_C_MA &gt;= <span class="number">32&#x27;h7f00</span>); </span><br><span class="line">								  </span><br><span class="line">  <span class="keyword">wire</span> EXCCode_ADEL = (load_type_MA) &amp;&amp; (exc_load_align || exc_load_adov || exc_load_OutOfRange || exc_load_timer);</span><br><span class="line"></span><br><span class="line"><span class="comment">//store EXC</span></span><br><span class="line"><span class="keyword">wire</span> exc_store_align = (((store_type_MA == <span class="number">3&#x27;b001</span>) &amp;&amp; (byte_offset != <span class="number">2&#x27;b00</span>)) ||</span><br><span class="line">					((store_type_MA == <span class="number">3&#x27;b100</span>) &amp;&amp; (byte_offset[<span class="number">0</span>] != <span class="number">1&#x27;b0</span>)));</span><br><span class="line">									</span><br><span class="line"><span class="keyword">wire</span> exc_store_adov = (store_type_MA &amp;&amp; (EX_EXCCode_pip_MA == <span class="number">4&#x27;d12</span>)); <span class="comment">//addr overflow</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> exc_store_OutOfRange = !(((ALU_C_MA &gt;= <span class="number">32&#x27;h0</span>) &amp;&amp; (ALU_C_MA &lt;= <span class="number">32&#x27;h2fff</span>)) || <span class="comment">//DM</span></span><br><span class="line">						  ((ALU_C_MA &gt;= <span class="number">32&#x27;h7f00</span>) &amp;&amp; (ALU_C_MA &lt;= <span class="number">32&#x27;h7f0b</span>)) || <span class="comment">//TC0</span></span><br><span class="line">						  ((ALU_C_MA &gt;= <span class="number">32&#x27;h7f10</span>) &amp;&amp; (ALU_C_MA &lt;= <span class="number">32&#x27;h7f1b</span>))); <span class="comment">//TC1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">wire</span> exc_store_timer = (store_type_MA &amp;&amp; ALU_C_MA &gt;= <span class="number">32&#x27;h0000_7f08</span> &amp;&amp; ALU_C_MA &lt;= <span class="number">32&#x27;h0000_7f0b</span>) ||</span><br><span class="line">					(store_type_MA &amp;&amp; ALU_C_MA &gt;= <span class="number">32&#x27;h0000_7f18</span> &amp;&amp; ALU_C_MA &lt;= <span class="number">32&#x27;h0000_7f1b</span>) ||</span><br><span class="line">					((store_type_MA == <span class="number">3&#x27;b010</span> || store_type_MA == <span class="number">3&#x27;b100</span>) &amp;&amp; ALU_C_MA &gt;= <span class="number">32&#x27;h7f00</span>); </span><br><span class="line">							</span><br><span class="line"><span class="keyword">wire</span> EXCCode_ADES = (store_type_MA) &amp;&amp; (exc_store_align || exc_store_adov || exc_store_OutOfRange || exc_store_timer);</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> MA_EXCCode_pip_MA = EXCCode_ADEL? <span class="number">4&#x27;d4</span>: </span><br><span class="line">						EXCCode_ADES? <span class="number">4&#x27;d5</span>:</span><br><span class="line">						<span class="number">4&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Task-3-加入协处理器CP0"><a href="#Task-3-加入协处理器CP0" class="headerlink" title="Task-3: 加入协处理器CP0"></a>Task-3: 加入协处理器CP0</h3><ul>
+<li>所有寄存器均为32bits</li>
+<li>处理中断和异常信号，判断是否发出req信号，发出req信号时所有流水寄存器清空（部分信号需要特殊处理）</li>
+<li>eret指令需要清空EXL部分</li>
+<li>0001_0000</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">寄存器</th>
+<th>寄存器编号</th>
+<th align="left">功能域</th>
+<th align="left">位域</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">SR（State Register）</td>
+<td>12</td>
+<td align="left">IM（Interrupt Mask）</td>
+<td align="left">15:10</td>
+<td align="left">分别对应六个外部中断，相应位置 1 表示允许中断，置 0 表示禁止中断。这是一个被动的功能，只能通过 <code>mtc0</code> 这个指令修改，通过修改这个功能域，我们可以屏蔽一些中断。</td>
+</tr>
+<tr>
+<td align="left">SR（State Register）</td>
+<td>12</td>
+<td align="left">EXL（Exception Level）</td>
+<td align="left">1</td>
+<td align="left">任何异常发生时置位，这会强制进入核心态（也就是进入异常处理程序）并禁止中断。</td>
+</tr>
+<tr>
+<td align="left">SR（State Register）</td>
+<td>12</td>
+<td align="left">IE（Interrupt Enable）</td>
+<td align="left">0</td>
+<td align="left">全局中断使能，该位置 1 表示允许中断，置 0 表示禁止中断。</td>
+</tr>
+<tr>
+<td align="left">Cause</td>
+<td>13</td>
+<td align="left">BD（Branch Delay）</td>
+<td align="left">31</td>
+<td align="left">当该位置 1 的时候，EPC 指向当前指令的前一条指令（一定为跳转），否则指向当前指令。</td>
+</tr>
+<tr>
+<td align="left">Cause</td>
+<td>13</td>
+<td align="left">IP（Interrupt Pending）</td>
+<td align="left">15:10</td>
+<td align="left">为 6 位待决的中断位，分别对应 6 个外部中断，相应位置 1 表示有中断，置 0 表示无中断，将会每个周期被修改一次，修改的内容来自计时器和外部中断。</td>
+</tr>
+<tr>
+<td align="left">Cause</td>
+<td>13</td>
+<td align="left">ExcCode</td>
+<td align="left">6:2</td>
+<td align="left">异常编码，记录当前发生的是什么异常。</td>
+</tr>
+<tr>
+<td align="left">EPC</td>
+<td>14</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">记录异常处理结束后需要返回的 PC。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="left">端口</th>
+<th align="left">方向</th>
+<th align="left">位数</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">clk</td>
+<td align="left">IN</td>
+<td align="left">1</td>
+<td align="left">时钟信号。</td>
+</tr>
+<tr>
+<td align="left">reset</td>
+<td align="left">IN</td>
+<td align="left">1</td>
+<td align="left">复位信号。</td>
+</tr>
+<tr>
+<td align="left">en</td>
+<td align="left">IN</td>
+<td align="left">1</td>
+<td align="left">写使能信号。</td>
+</tr>
+<tr>
+<td align="left">CP0Add</td>
+<td align="left">IN</td>
+<td align="left">5</td>
+<td align="left">读取&#x2F;写入目标寄存器地址。</td>
+</tr>
+<tr>
+<td align="left">CP0In</td>
+<td align="left">IN</td>
+<td align="left">32</td>
+<td align="left">写入寄存器数据。</td>
+</tr>
+<tr>
+<td align="left">CP0Out</td>
+<td align="left">OUT</td>
+<td align="left">32</td>
+<td align="left">读出寄存器数据。</td>
+</tr>
+<tr>
+<td align="left">VPC</td>
+<td align="left">IN</td>
+<td align="left">32</td>
+<td align="left">当前异常中断发生时PC的值。</td>
+</tr>
+<tr>
+<td align="left">BDIn</td>
+<td align="left">IN</td>
+<td align="left">1</td>
+<td align="left">当前异常中断发生指令是否是延迟槽内指令。</td>
+</tr>
+<tr>
+<td align="left">ExcCodeIn</td>
+<td align="left">IN</td>
+<td align="left">5</td>
+<td align="left">当前发生异常类型。</td>
+</tr>
+<tr>
+<td align="left">HWInt</td>
+<td align="left">IN</td>
+<td align="left">6</td>
+<td align="left">外部产生的中断信号。</td>
+</tr>
+<tr>
+<td align="left">EXLClr</td>
+<td align="left">IN</td>
+<td align="left">1</td>
+<td align="left">是否结束异常中断处理（复位 EXL）。</td>
+</tr>
+<tr>
+<td align="left">EPCOut</td>
+<td align="left">OUT</td>
+<td align="left">32</td>
+<td align="left">EPC 的值。</td>
+</tr>
+<tr>
+<td align="left">Req</td>
+<td align="left">OUT</td>
+<td align="left">1</td>
+<td align="left">进入处理程序请求。</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">define</span> IM regs[12][15:10]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> EXL regs[12][1]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> IE regs[12][0]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> BD regs[13][31]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> IP regs[13][15:10]</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> EXCCode regs[13][6:2]	 </span></span><br><span class="line">	 <span class="comment">// SR-12, Cause-13, EPC-14</span></span><br><span class="line">	 <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] regs [<span class="number">0</span>:<span class="number">31</span>];</span><br><span class="line">	 <span class="keyword">assign</span> CP0Out = regs[CP0Addr];</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">wire</span> IntReq = (|(HWInt &amp; `IM)) &amp; !`EXL &amp; `IE; <span class="comment">// 允许当前中断 且 不在中断异常中 且 允许中断发生</span></span><br><span class="line">	 <span class="keyword">wire</span> ExcReq = (|EXCCodeIn) &amp; !`EXL; <span class="comment">// 存在异常 且 不在中断中</span></span><br><span class="line">	 <span class="keyword">assign</span> Req = IntReq | ExcReq;</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] tempEPC = (Req) ? (BDIn ? VPC-<span class="number">4</span> : VPC)</span><br><span class="line">                            : regs[<span class="number">14</span>];</span><br><span class="line"></span><br><span class="line">	 <span class="keyword">assign</span> EPCOut = &#123;tempEPC[<span class="number">31</span>:<span class="number">2</span>], <span class="number">2&#x27;b0</span>&#125;;</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">integer</span> i;</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i=i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">			regs[i] = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	 <span class="keyword">end</span></span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (reset) <span class="keyword">begin</span></span><br><span class="line">			<span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;<span class="number">32</span>;i=i+<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">				regs[i] &lt;= <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">			`IP &lt;= HWInt;</span><br><span class="line">			<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">				regs[CP0Addr] &lt;= CP0In;</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">			<span class="keyword">if</span> (Req) <span class="keyword">begin</span> <span class="comment">// int|exc</span></span><br><span class="line">				`EXCCode &lt;= IntReq ? <span class="number">5&#x27;b0</span> : EXCCodeIn;</span><br><span class="line">				`EXL &lt;= <span class="number">1&#x27;b1</span>;</span><br><span class="line">				regs[<span class="number">14</span>] &lt;= tempEPC;</span><br><span class="line">				`BD &lt;= BDIn;</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">			<span class="keyword">if</span> (EXLClr) <span class="keyword">begin</span></span><br><span class="line">				`EXL &lt;= <span class="number">1&#x27;b0</span>;</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	 <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Task-4-加指令"><a href="#Task-4-加指令" class="headerlink" title="Task-4: 加指令"></a>Task-4: 加指令</h3><p>在 P6 基础上新增了 <code>mfc0, mtc0, eret, syscall</code> 四条新指令</p>
+<p>目前p7要求实现如下指令：(最好把jump指令也实现了，方便处理异常)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nop, add, sub, and, or, slt, sltu, lui</span><br><span class="line">addi, andi, ori</span><br><span class="line">lb, lh, lw, sb, sh, sw</span><br><span class="line">mult, multu, div, divu, mfhi, mflo, mthi, mtlo</span><br><span class="line">beq, bne, jal, jr,</span><br><span class="line">mfc0, mtc0, eret, syscall</span><br></pre></td></tr></table></figure>
+
+<h4 id="MFC0"><a href="#MFC0" class="headerlink" title="MFC0"></a>MFC0</h4><p>把CP0中的rd号寄存器的值存入grf的rt寄存器</p>
+<ul>
+<li>需要简单处理下转发，类似lw的转发</li>
+</ul>
+<p><img src="/./P7_MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F.assets/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-12-10%20223750.png" alt="屏幕截图 2024-12-10 223750"></p>
+<h4 id="MTC0"><a href="#MTC0" class="headerlink" title="MTC0"></a>MTC0</h4><p>将grf的rt号寄存器的值存入CP0的rd号寄存器</p>
+<p><img src="/./P7_MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F.assets/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-12-10%20223808.png" alt="屏幕截图 2024-12-10 223808"></p>
+<h4 id="ERET"><a href="#ERET" class="headerlink" title="ERET"></a>ERET</h4><p>从错误处理程序中返回到主程序</p>
+<ul>
+<li>在ID级时设置next_pc为CP0的EXC</li>
+<li>在ID级时清空延迟槽，确保后续指令不会被处理</li>
+<li>到达MA级时，需要清空CP0的EXL部分，表示当前不在处于核心状态（异常处理程序）</li>
+<li>在ID级时，如果EX或MA级是MTC0且目标寄存器为14号（EXC）则阻塞，确保返回地址正确。</li>
+</ul>
+<p><img src="/./P7_MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F.assets/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-12-10%20223824.png" alt="屏幕截图 2024-12-10 223824"></p>
+<h4 id="syscall"><a href="#syscall" class="headerlink" title="syscall"></a>syscall</h4><p>在controller里发出一个异常信号（异常码为8）即可</p>
+<p><img src="/./P7_MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F.assets/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-12-10%20223849.png" alt="屏幕截图 2024-12-10 223849"></p>
+<h3 id="流水寄存器行为"><a href="#流水寄存器行为" class="headerlink" title="流水寄存器行为"></a>流水寄存器行为</h3><h4 id="为什么要修改寄存器的清空行为？"><a href="#为什么要修改寄存器的清空行为？" class="headerlink" title="为什么要修改寄存器的清空行为？"></a>为什么要修改寄存器的清空行为？</h4><p>我们在阻塞的时候会在EX级产生一个bubble，可以看作nop不发生任何作用，但实际上我们要把CPU封装为单周期CPU，级两条相邻的指令之间不会莫名其妙多出来一个nop指令。</p>
+<p>试想，如果不修改清空逻辑的情况下，ID级是一个延迟槽内的指令，正常来说它到达MA级时如果发生了异常或中断，我们的EPC是需要写入PC-4的，因为我们从异常处理程序中返回时需要返回到延迟槽指令的前一条指令（即跳转指令）。而如果延迟槽内的指令在ID级时发生了阻塞产生了一个’nop’，nop流水到MA级时发生了异常或中断我们该如何记录EPC？这个’nop’在外部看来是不应该存在的，其没有对应的PC，其对应的PC应该是延迟槽指令的PC，其也应该被标记为延迟槽内指令，这样从异常处理程序中返回时才能返回到正确的地址。</p>
+<p>按照从上至下的优先级依次处理</p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>PC流水寄存器行为</th>
+<th>BD流水寄存器行为</th>
+<th>其他流水寄存器行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>reset</code></td>
+<td>复位至 <code>0x00003000</code></td>
+<td>复位至 <code>0</code></td>
+<td>清空</td>
+</tr>
+<tr>
+<td><code>req</code></td>
+<td>设置为 <code>0x00004180</code></td>
+<td>设置为 <code>0</code></td>
+<td>清空</td>
+</tr>
+<tr>
+<td><code>ID_EXLClr</code> （仅对F级到D级流水寄存器起作用，<strong>且此时stall信号为0</strong>）</td>
+<td>设置为当前周期的 <code>EPC</code> 的值</td>
+<td>不发生变化</td>
+<td>清空</td>
+</tr>
+<tr>
+<td><code>flush</code>（仅指对D级到E级流水寄存器起作用的阻塞信号）</td>
+<td>不发生变化</td>
+<td>不发生变化</td>
+<td>清空</td>
+</tr>
+</tbody></table>
+<h4 id="PC"><a href="#PC" class="headerlink" title="PC"></a>PC</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (reset || req) <span class="keyword">begin</span></span><br><span class="line">        pc &lt;= req? <span class="number">32&#x27;h4180</span>: <span class="number">32&#x27;h3000</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">           pc &lt;= next_pc;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="IF-ID-Reg"><a href="#IF-ID-Reg" class="headerlink" title="IF_ID Reg"></a>IF_ID Reg</h4><p>clear_bd表示清空延迟槽，对于P7仅针对eret指令</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (reset || clr || req || clear_bd) <span class="keyword">begin</span></span><br><span class="line">          <span class="comment">//置0操作省略</span></span><br><span class="line">	pc_add4_out &lt;= (reset)? <span class="number">32&#x27;h00003004</span>:</span><br><span class="line">				   (req)? <span class="number">32&#x27;h00004184</span>:</span><br><span class="line">				   (clear_bd)? EPC:</span><br><span class="line">					<span class="number">0</span>;</span><br><span class="line">	BD_out &lt;= (clear_bd)? BD: <span class="number">0</span>;</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">              <span class="comment">//省略</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="ID-EX-Reg"><a href="#ID-EX-Reg" class="headerlink" title="ID_EX Reg"></a>ID_EX Reg</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line"><span class="keyword">if</span> (reset || stall || req) <span class="keyword">begin</span></span><br><span class="line">          <span class="comment">//置0操作省略</span></span><br><span class="line">	pc_add4_out &lt;= (reset)? <span class="number">32&#x27;h00003004</span>:</span><br><span class="line">						(req)? <span class="number">32&#x27;h00004184</span>: </span><br><span class="line">						(stall)? pc_add4:</span><br><span class="line">						<span class="number">0</span>;</span><br><span class="line">	BD_out &lt;= (stall)? BD: <span class="number">0</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">		<span class="comment">//省略</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="EX-MA-Reg"><a href="#EX-MA-Reg" class="headerlink" title="EX_MA Reg"></a>EX_MA Reg</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span> (reset || clr || req) <span class="keyword">begin</span></span><br><span class="line">              <span class="comment">//置0操作省略</span></span><br><span class="line">		pc_add4_out &lt;= reset? <span class="number">32&#x27;h00003004</span>:</span><br><span class="line">					   req? <span class="number">32&#x27;h00004184</span>: </span><br><span class="line">					   <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">                  <span class="comment">//省略</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MA-WB-Reg"><a href="#MA-WB-Reg" class="headerlink" title="MA_WB Reg"></a>MA_WB Reg</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">if</span> (clr || reset || req) <span class="keyword">begin</span></span><br><span class="line">           <span class="comment">//置0操作省略</span></span><br><span class="line">		pc_add4_out &lt;= reset? <span class="number">32&#x27;h00003004</span>:</span><br><span class="line">							req? <span class="number">32&#x27;h00004184</span>:</span><br><span class="line">							<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">               <span class="comment">//省略</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="我的Bug"><a href="#我的Bug" class="headerlink" title="我的Bug"></a>我的Bug</h2><p>以下是我在通过课下弱测和中测后发现的bug：</p>
+<ul>
+<li>不涉及计算操作时ALUOP默认设为了&#96;ADD，导致不是ALU类指令时出现了溢出情况。</li>
+<li>当MA级异常时，如果EX级为mthi或mtlo时仍会向HI或LO中写入值。</li>
+<li>当PC错误或遇到未知指令时没有向后传递nop。</li>
+<li>mtc0位于MA级时，如果当出现中断时，仍会向CP0中的寄存器写入值。</li>
+<li>EXCCode优先级问题。load或store指令会触发EX级的算术overflow（异常码12）异常，在MA级也会除法overflow（异常码4或5）的异常，按照<code>优先处理先探查到的错误</code>的原则我们会选择EX级的算术overflow，导致存入CP0的异常码错误。</li>
+</ul>
+<h2 id="测试方案"><a href="#测试方案" class="headerlink" title="测试方案"></a>测试方案</h2><ul>
+<li>手动构造样例确保新指令的功能正确性，尽可能覆盖大部分异常情况。</li>
+<li>随机生成指令强测确保转发和阻塞的正确性。对CO-Killer略加修改，生成符合要求的随机数据。</li>
+<li>限制读写寄存器的范围，能够尽可能多的造成数据冒险，再加上大量随机数据，基本可以覆盖全部转发和阻塞情况。</li>
+<li>利用自己写的python脚本填充nop至0x4180。</li>
+<li>定时器产生周期性中断信号，测试timer的中断是否正确被处理。</li>
+<li>修改testbench产生中断，测试中断发生器发出的中断是否正确被处理。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 填充nop</span></span><br><span class="line">last_pc = <span class="built_in">input</span>(<span class="string">&#x27;enter the last pc in text: &#x27;</span>)</span><br><span class="line">pc = <span class="built_in">int</span>(last_pc, <span class="number">16</span>) + <span class="number">4</span></span><br><span class="line"><span class="keyword">while</span> pc &lt; <span class="number">0x4180</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;# <span class="subst">&#123;<span class="built_in">hex</span>(pc)&#125;</span>\nnop&quot;</span>)</span><br><span class="line">    pc += <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><ol>
+<li>请查阅相关资料，说明鼠标和键盘的输入信号是如何被 CPU 知晓的？</li>
+</ol>
+<blockquote>
+<p>鼠标和键盘产生中断信号，进入中断处理区的对应位置，将输入信号从鼠标和键盘中读入寄存器。</p>
+</blockquote>
+<ol start="2">
+<li>请思考为什么我们的 CPU 处理中断异常必须是已经指定好的地址？如果你的 CPU 支持用户自定义入口地址，即处理中断异常的程序由用户提供，其还能提供我们所希望的功能吗？如果可以，请说明这样可能会出现什么问题？否则举例说明。（假设用户提供的中断处理程序合法）</li>
+</ol>
+<blockquote>
+<ul>
+<li>指定好的中断处理入口地址由硬件设计决定，能确保所有中断和异常按照既定逻辑处理。如果允许用户自定义入口地址，用户可能会直接跳过关键的上下文保存步骤，导致程序状态紊乱</li>
+<li>指定的中断地址通常位于受保护的系统区域，由操作系统或固件控制。用户故意定义有害的中断处理程序，例如窃取敏感信息或修改关键数据。</li>
+</ul>
+</blockquote>
+<ol start="3">
+<li>为何与外设通信需要 Bridge？</li>
+</ol>
+<blockquote>
+<ul>
+<li>CPU与外设数据吞吐量存在差异：Bridge充当缓冲区和速率匹配器，协调高速的处理器与低速外设之间的数据交换。</li>
+<li>地址映射差异：Bridge可以对地址进行解码，将处理器的访问请求转化为外设能够理解的操作。</li>
+</ul>
+</blockquote>
+<ol start="4">
+<li>请阅读官方提供的定时器源代码，阐述两种中断模式的异同，并针对每一种模式绘制状态移图。</li>
+</ol>
+<blockquote>
+<p><strong>MODE 0</strong></p>
+<p>定时产生中断信号</p>
+<p><img src="/./P7_MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F.assets/timer.drawio%20(1).png" alt="timer.drawio (1)"></p>
+<p><strong>MODE 1</strong></p>
+<p>周期性产生中断信号</p>
+<p><img src="/./P7_MIPS%E5%BE%AE%E7%B3%BB%E7%BB%9F.assets/timer.drawio%20(2).png" alt="timer.drawio (2)"></p>
+</blockquote>
+<ol start="5">
+<li>倘若中断信号流入的时候，在检测宏观 PC 的一级如果是一条空泡（你的 CPU 该级所有信息均为空）指令，此时会发生什么问题？在此例基础上请思考：在 P7 中，清空流水线产生的空泡指令应该保留原指令的哪些信息？</li>
+</ol>
+<blockquote>
+<p>如果此时有一个中断或异常信号，则CP0记录下的PC为0x0000，在从异常处理程序返回时会发生错误。</p>
+<p>应该保留PC值，由于在Req信号有效时，通过将流水寄存器的PC值不进行复位，使得达到精确异常的效果。使得回到EPC时依然是精确的。</p>
+</blockquote>
+<ol start="6">
+<li>为什么 <code>jalr</code> 指令为什么不能写成 <code>jalr $31, $31</code>？</li>
+</ol>
+<blockquote>
+<p>如果 <code>jalr $31 $31 </code>的延迟槽内发生异常或需要响应中断。那么 <code>$31</code> 寄存器的值已经被 <code>jalr</code> 改变，但是处理异常结束后，会再次执行 <code>jalr</code> 指令，这就会跳转到不正确的 <code>PC</code> 地址。</p>
+</blockquote>
+<ol start="7">
+<li>[P7 选做] 请详细描述你的测试方案及测试数据构造策略。</li>
+</ol>
+<blockquote>
+<p>见上文</p>
+</blockquote>
+<h2 id="课程组官方TestBench"><a href="#课程组官方TestBench" class="headerlink" title="课程组官方TestBench"></a>课程组官方TestBench</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">timescale</span> 1ns/1ps</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> mips_txt;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">reg</span> clk;</span><br><span class="line">	<span class="keyword">reg</span> reset;</span><br><span class="line">	<span class="keyword">reg</span> interrupt;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] macroscopic_pc;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] i_inst_addr;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] i_inst_rdata;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] m_data_addr;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] m_data_rdata;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] m_data_wdata;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">3</span> :<span class="number">0</span>] m_data_byteen;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] m_int_addr;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">3</span> :<span class="number">0</span>] m_int_byteen;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] m_inst_addr;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span>		w_grf_we;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">4</span> :<span class="number">0</span>] w_grf_addr;</span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] w_grf_wdata;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] w_inst_addr;</span><br><span class="line"></span><br><span class="line">	mips uut(</span><br><span class="line">		<span class="variable">.clk</span>(clk),</span><br><span class="line">		<span class="variable">.reset</span>(reset),</span><br><span class="line">		<span class="variable">.interrupt</span>(interrupt),</span><br><span class="line">		<span class="variable">.macroscopic_pc</span>(macroscopic_pc),</span><br><span class="line"></span><br><span class="line">		<span class="variable">.i_inst_addr</span>(i_inst_addr),</span><br><span class="line">		<span class="variable">.i_inst_rdata</span>(i_inst_rdata),</span><br><span class="line"></span><br><span class="line">		<span class="variable">.m_data_addr</span>(m_data_addr),</span><br><span class="line">		<span class="variable">.m_data_rdata</span>(m_data_rdata),</span><br><span class="line">		<span class="variable">.m_data_wdata</span>(m_data_wdata),</span><br><span class="line">		<span class="variable">.m_data_byteen</span>(m_data_byteen),</span><br><span class="line"></span><br><span class="line">		<span class="variable">.m_int_addr</span>(m_int_addr),</span><br><span class="line">		<span class="variable">.m_int_byteen</span>(m_int_byteen),</span><br><span class="line"></span><br><span class="line">		<span class="variable">.m_inst_addr</span>(m_inst_addr),</span><br><span class="line"></span><br><span class="line">		<span class="variable">.w_grf_we</span>(w_grf_we),</span><br><span class="line">		<span class="variable">.w_grf_addr</span>(w_grf_addr),</span><br><span class="line">		<span class="variable">.w_grf_wdata</span>(w_grf_wdata),</span><br><span class="line"></span><br><span class="line">		<span class="variable">.w_inst_addr</span>(w_inst_addr)</span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">		clk &lt;= <span class="number">0</span>;</span><br><span class="line">		reset &lt;= <span class="number">1</span>;</span><br><span class="line">		interrupt &lt;= <span class="number">0</span>;</span><br><span class="line">		#<span class="number">20</span> reset &lt;= <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">integer</span> i;</span><br><span class="line">	<span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] fixed_addr;</span><br><span class="line">	<span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] fixed_wdata;</span><br><span class="line">	<span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] data[<span class="number">0</span>:<span class="number">4095</span>];</span><br><span class="line">	<span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] inst[<span class="number">0</span>:<span class="number">5119</span>];</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ----------- For Instructions -----------</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">assign</span> m_data_rdata = data[(m_data_addr &gt;&gt; <span class="number">2</span>) % <span class="number">5120</span>];</span><br><span class="line">	<span class="keyword">assign</span> i_inst_rdata = inst[((i_inst_addr - <span class="number">32&#x27;h3000</span>) &gt;&gt; <span class="number">2</span>) % <span class="number">5120</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">		<span class="built_in">$readmemh</span>(<span class="string">&quot;code.txt&quot;</span>, inst);</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5120</span>; i = i + <span class="number">1</span>) data[i] &lt;= <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// ----------- For Data Memory -----------</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">		fixed_wdata = data[(m_data_addr &gt;&gt; <span class="number">2</span>) &amp; <span class="number">4095</span>];</span><br><span class="line">		fixed_addr = m_data_addr &amp; <span class="number">32&#x27;hfffffffc</span>;</span><br><span class="line">		<span class="keyword">if</span> (m_data_byteen[<span class="number">3</span>]) fixed_wdata[<span class="number">31</span>:<span class="number">24</span>] = m_data_wdata[<span class="number">31</span>:<span class="number">24</span>];</span><br><span class="line">		<span class="keyword">if</span> (m_data_byteen[<span class="number">2</span>]) fixed_wdata[<span class="number">23</span>:<span class="number">16</span>] = m_data_wdata[<span class="number">23</span>:<span class="number">16</span>];</span><br><span class="line">		<span class="keyword">if</span> (m_data_byteen[<span class="number">1</span>]) fixed_wdata[<span class="number">15</span>: <span class="number">8</span>] = m_data_wdata[<span class="number">15</span>: <span class="number">8</span>];</span><br><span class="line">		<span class="keyword">if</span> (m_data_byteen[<span class="number">0</span>]) fixed_wdata[<span class="number">7</span> : <span class="number">0</span>] = m_data_wdata[<span class="number">7</span> : <span class="number">0</span>];</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (reset) <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">4096</span>; i = i + <span class="number">1</span>) data[i] &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (|m_data_byteen &amp;&amp; fixed_addr &gt;&gt; <span class="number">2</span> &lt; <span class="number">4096</span>) <span class="keyword">begin</span></span><br><span class="line">			data[fixed_addr &gt;&gt; <span class="number">2</span>] &lt;= fixed_wdata;</span><br><span class="line">			<span class="built_in">$display</span>(<span class="string">&quot;%d@%h: *%h &lt;= %h&quot;</span>, <span class="built_in">$time</span>, m_inst_addr, fixed_addr, fixed_wdata);</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// ----------- For Registers -----------</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (~reset) <span class="keyword">begin</span></span><br><span class="line">			<span class="keyword">if</span> (w_grf_we &amp;&amp; (w_grf_addr != <span class="number">0</span>)) <span class="keyword">begin</span></span><br><span class="line">				<span class="built_in">$display</span>(<span class="string">&quot;%d@%h: $%d &lt;= %h&quot;</span>, <span class="built_in">$time</span>, w_inst_addr, w_grf_addr, w_grf_wdata);</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// ----------- For Interrupt -----------</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] fixed_macroscopic_pc;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">assign</span> fixed_macroscopic_pc = macroscopic_pc &amp; <span class="number">32&#x27;hfffffffc</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">parameter</span> target_pc = <span class="number">32&#x27;h00003010</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">integer</span> count;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">		count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">always</span> @(<span class="keyword">negedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (reset) <span class="keyword">begin</span></span><br><span class="line">			interrupt = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">			<span class="keyword">if</span> (interrupt) <span class="keyword">begin</span></span><br><span class="line">				<span class="keyword">if</span> (|m_int_byteen &amp;&amp; (m_int_addr &amp; <span class="number">32&#x27;hfffffffc</span>) == <span class="number">32&#x27;h7f20</span>) <span class="keyword">begin</span></span><br><span class="line">					interrupt = <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">end</span></span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (fixed_macroscopic_pc == target_pc) <span class="keyword">begin</span></span><br><span class="line">				<span class="keyword">if</span> (count == <span class="number">0</span>) <span class="keyword">begin</span></span><br><span class="line">					count = <span class="number">1</span>;</span><br><span class="line">					interrupt = <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">end</span></span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">always</span> #<span class="number">2</span> clk &lt;= ~clk;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure></div><div class="article-licensing box"><div class="licensing-title"><p>CO-P7-设计文档</p><p><a href="https://lhy0424.top/2024/12/20/P7_设计文档/">https://lhy0424.top/2024/12/20/P7_设计文档/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Az</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-12-20</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-12-20</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><span class="level-item">CO-P6-设计文档</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/az.jpg" alt="Az"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Az</p><p class="is-size-6 is-block">BUAA 2306</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>安徽 阜阳</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/Accepted0424" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/Accepted0424"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg" alt="CO-P7-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T16:01:27.479Z">2024-12-20</time></p><p class="title"><a href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P7-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg" alt="CO-P6-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T16:01:22.392Z">2024-12-20</time></p><p class="title"><a href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P6-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg" alt="CO-P5-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:55.784Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P5-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P4_cover.jpg" alt="CO-P4-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:51.083Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P4-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P3_cover.jpg" alt="CO-P3-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:45.601Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P3-设计文档</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">十一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/10/"><span class="level-start"><span class="level-item">十月 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/07/"><span class="level-start"><span class="level-item">七月 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Az&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Az</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

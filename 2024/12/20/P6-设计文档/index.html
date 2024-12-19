@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>CO-P6-设计文档 - Az&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Az&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Az&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="2024计算机组成原理P6设计文档"><meta property="og:type" content="blog"><meta property="og:title" content="CO-P6-设计文档"><meta property="og:url" content="https://lhy0424.top/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><meta property="og:site_name" content="Az&#039;s Blog"><meta property="og:description" content="2024计算机组成原理P6设计文档"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://lhy0424.top/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg"><meta property="article:published_time" content="2024-12-19T16:01:22.392Z"><meta property="article:modified_time" content="2024-12-19T16:32:34.069Z"><meta property="article:author" content="Az"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://lhy0424.top/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://lhy0424.top/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"},"headline":"CO-P6-设计文档","image":["https://lhy0424.top/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg"],"datePublished":"2024-12-19T16:01:22.392Z","dateModified":"2024-12-19T16:32:34.069Z","author":{"@type":"Person","name":"Az"},"publisher":{"@type":"Organization","name":"Az's Blog","logo":{"@type":"ImageObject","url":"https://lhy0424.top/img/logo.svg"}},"description":"2024计算机组成原理P6设计文档"}</script><link rel="canonical" href="https://lhy0424.top/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Az&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg" alt="CO-P6-设计文档"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-12-19T16:01:22.392Z" title="2024/12/20 00:01:22">2024-12-20</time>发表</span><span class="level-item"><time dateTime="2024-12-19T16:32:34.069Z" title="2024/12/20 00:32:34">2024-12-20</time>更新</span><span class="level-item">28 分钟读完 (大约4264个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">CO-P6-设计文档</h1><div class="content"><p>2024计算机组成原理P6设计文档</p>
+<span id="more"></span>
+
+<h1 id="P6-document"><a href="#P6-document" class="headerlink" title="P6_document"></a>P6_document</h1><h2 id="Hazard-v"><a href="#Hazard-v" class="headerlink" title="Hazard.v"></a>Hazard.v</h2><table>
+<thead>
+<tr>
+<th>input</th>
+<th>explain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Instr_ID</td>
+<td>ID阶段的指令码</td>
+</tr>
+<tr>
+<td>Instr_EX</td>
+<td>EX阶段的指令码</td>
+</tr>
+<tr>
+<td>Instr_MA</td>
+<td>MA阶段的指令码</td>
+</tr>
+<tr>
+<td>A3_EX</td>
+<td>EX阶段的寄存器写入地址</td>
+</tr>
+<tr>
+<td>A3_MA</td>
+<td>MA阶段的寄存器写入地址</td>
+</tr>
+<tr>
+<td>busy</td>
+<td>乘除槽正在进行计算</td>
+</tr>
+<tr>
+<td>start</td>
+<td>乘除槽开始进行计算</td>
+</tr>
+</tbody></table>
+<h4 id="T-use表格（需求者）"><a href="#T-use表格（需求者）" class="headerlink" title="T_use表格（需求者）"></a>T_use表格（需求者）</h4><p>指令位于ID级时，还需要多少个周期才必须要使用数据。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>add</th>
+<th>sub</th>
+<th>ori</th>
+<th>lw</th>
+<th>sw</th>
+<th>beq</th>
+<th>lui</th>
+<th>jal</th>
+<th>jr</th>
+<th>nop</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$T_{use}(rs)$</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>$T_{use}(rt)$</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>P6_new</th>
+<th>and</th>
+<th>or</th>
+<th>slt</th>
+<th>sltu</th>
+<th>addi</th>
+<th>andi</th>
+<th>lb</th>
+<th>lh</th>
+<th>sb</th>
+<th>sh</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$T_{use}(rs)$</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>$T_{use}(rt)$</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>P6_new</th>
+<th>mult</th>
+<th>multu</th>
+<th>div</th>
+<th>divu</th>
+<th>mfhi</th>
+<th>mflo</th>
+<th>mthi</th>
+<th>mtlo</th>
+<th>bne</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$T_{use}(rs)$</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>$T_{use}(rt)$</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tuse_rs = (add_ID | sub_ID | ori_ID | lw_ID | sw_ID | lui_ID | and_ID | or_ID | slt_ID | sltu_ID | addi_ID | andi_ID | lb_ID | lh_ID | sb_ID | sh_ID | mthi_ID | mtlo_ID | mult_ID | multu_ID | div_ID | divu_ID)?<span class="number">2&#x27;b01</span>:</span><br><span class="line">							(beq_ID | jr_ID | bne_ID)? <span class="number">2&#x27;b00</span>:</span><br><span class="line">							<span class="number">2&#x27;b11</span>;</span><br><span class="line">							</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tuse_rt = (add_ID | sub_ID | and_ID | or_ID | slt_ID |sltu_ID | mult_ID | multu_ID | div_ID | divu_ID)? <span class="number">2&#x27;b01</span>:</span><br><span class="line">							(sw_ID | sb_ID | sh_ID)? <span class="number">2&#x27;b10</span>: </span><br><span class="line">							(beq_ID | bne_ID)? <span class="number">2&#x27;b00</span>:</span><br><span class="line">							<span class="number">2&#x27;b11</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="T-new表格（供给者）"><a href="#T-new表格（供给者）" class="headerlink" title="T_new表格（供给者）"></a>T_new表格（供给者）</h4><p>T_new: 供给指令位于某个流水级时还需要多少个周期才可以计算出结果并存储到流水寄存器中。</p>
+<p><em><strong>早于需求指令进入流水线的供给者还需要多少cycle能够产生需求者需要的寄存器值。</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>Intsr</th>
+<th>add</th>
+<th>sub</th>
+<th>ori</th>
+<th>lw</th>
+<th>sw</th>
+<th>beq</th>
+<th>lui</th>
+<th>jal</th>
+<th>jr</th>
+<th>nop</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能部件(结果来源)</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>DM</td>
+<td></td>
+<td></td>
+<td>ALU</td>
+<td>PC</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EX</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MA</td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WB</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>P6_new_Intsr</th>
+<th>and</th>
+<th>or</th>
+<th>slt</th>
+<th>sltu</th>
+<th>addi</th>
+<th>andi</th>
+<th>lb</th>
+<th>lh</th>
+<th>sb</th>
+<th>sh</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能部件(结果来源)</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>ALU</td>
+<td>DM</td>
+<td>DM</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EX</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WB</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>0</td>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>P6_new_Intsr</th>
+<th>mult</th>
+<th>multu</th>
+<th>div</th>
+<th>divu</th>
+<th>mfhi</th>
+<th>mflo</th>
+<th>mthi</th>
+<th>mtlo</th>
+<th>bne</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能部件(结果来源)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>mdb</td>
+<td>mdb</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EX</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>WB</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tnew_EX = (add_EX | sub_EX | ori_EX | lui_EX | and_EX | or_EX | slt_EX | sltu_EX | addi_EX | andi_EX | mfhi_EX | mflo_EX)? <span class="number">2&#x27;b01</span>:</span><br><span class="line">							(lw_EX | lb_EX | lh_EX)? <span class="number">2&#x27;b10</span>: <span class="number">2&#x27;b00</span>;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">1</span>:<span class="number">0</span>] Tnew_MA = (lw_MA | lb_MA | lh_MA)?<span class="number">2&#x27;b01</span>:<span class="number">2&#x27;b00</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="rs策略矩阵"><a href="#rs策略矩阵" class="headerlink" title="rs策略矩阵"></a>rs策略矩阵</h3><table>
+<thead>
+<tr>
+<th>$T_{use} \textbackslash \space T_{new}$</th>
+<th>EX</th>
+<th>EX</th>
+<th>EX</th>
+<th>MA</th>
+<th>MA</th>
+<th>MA</th>
+<th>WB</th>
+<th>WB</th>
+<th>WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+</tr>
+<tr>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>1</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody></table>
+<h3 id="rt策略矩阵"><a href="#rt策略矩阵" class="headerlink" title="rt策略矩阵"></a>rt策略矩阵</h3><table>
+<thead>
+<tr>
+<th>$T_{use} \textbackslash \space T_{new}$</th>
+<th>EX</th>
+<th>EX</th>
+<th>EX</th>
+<th>MA</th>
+<th>MA</th>
+<th>MA</th>
+<th>WB</th>
+<th>WB</th>
+<th>WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+<td>ALU</td>
+<td>DM</td>
+<td>PC</td>
+</tr>
+<tr>
+<td></td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>S</strong></td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>1</td>
+<td>F</td>
+<td><strong>S</strong></td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>2</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+</tr>
+</tbody></table>
+<h3 id="如何理解策略矩阵"><a href="#如何理解策略矩阵" class="headerlink" title="如何理解策略矩阵"></a>如何理解策略矩阵</h3><ul>
+<li>策略矩阵针对的是AT法中的Time部分，具体判断阻塞还是转发需要综合Adress部分</li>
+<li>对于ALU型指令，如add，只需要关注 $T_{new}$ 的ALU一列，其表示在当前流水级下，还有多少周期才能计算出结果并存入流水级寄存器。</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> Stall_RS_EX = (Tuse_rs &lt; Tnew_EX) &amp; (A3_EX == RS_ID &amp; RS_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_RS_MA = (Tuse_rs &lt; Tnew_MA) &amp; (A3_MA == RS_ID &amp; RS_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_RT_EX = (Tuse_rt &lt; Tnew_EX) &amp; (A3_EX == RT_ID &amp; RT_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_RT_MA = (Tuse_rt &lt; Tnew_MA) &amp; (A3_MA == RT_ID &amp; RT_ID != <span class="number">0</span>);</span><br><span class="line"><span class="keyword">wire</span> Stall_md = ((busy | start) &amp; (mult_ID | multu_ID | div_ID | divu_ID | mfhi_ID | mflo_ID | mthi_ID | mtlo_ID));</span><br><span class="line"></span><br><span class="line"><span class="keyword">assign</span> Stall = Stall_RS_EX | Stall_RS_MA | Stall_RT_EX | Stall_RT_MA | Stall_md;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Forward-in-mips-v"><a href="#Forward-in-mips-v" class="headerlink" title="Forward in mips.v"></a>Forward in mips.v</h2><h4 id="数据的供给者"><a href="#数据的供给者" class="headerlink" title="数据的供给者"></a>数据的供给者</h4><ul>
+<li>EX_MA级流水线寄存器</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] forward_EX_MA = (RegWrite_MA &amp;&amp; (Mem2Reg_MA == <span class="number">2&#x27;b00</span>))? ALU_C_MA:  </span><br><span class="line">							(RegWrite_MA &amp;&amp; (Mem2Reg_MA == <span class="number">2&#x27;b10</span>))? pc_add4_MA + <span class="number">32&#x27;d4</span>:</span><br><span class="line">							<span class="number">32&#x27;h404</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>MA_WB级流水线寄存器</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> grf_WD = (Mem2Reg_WB == <span class="number">2&#x27;b00</span>) ? ALU_C_WB :</span><br><span class="line">				(Mem2Reg_WB == <span class="number">2&#x27;b01</span>) ? dm_data_WB :</span><br><span class="line">				(Mem2Reg_WB == <span class="number">2&#x27;b10</span>) ? pc_add4_WB + <span class="number">32&#x27;d4</span> : <span class="number">32&#x27;d0</span>;</span><br><span class="line">						 </span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] forward_MA_WB = RegWrite_WB? grf_WD: <span class="number">32&#x27;h405</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据需求者"><a href="#数据需求者" class="headerlink" title="数据需求者"></a>数据需求者</h4><ul>
+<li>ID级</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] RD1_ID_valid =  ((RS_ID == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							((RS_ID == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							RD1_ID;</span><br><span class="line">										</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] RD2_ID_valid =  ((RT_ID == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							((RT_ID == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							RD2_ID;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EX级</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//forward--select valid ALU_A and ALU_B</span></span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] ALU_A_EX_valid = ((RS_EX == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							 ((RS_EX == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							 RD1_EX;</span><br><span class="line">										</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] Grt_EX_valid =  ((RT_EX == A3_MA) &amp;&amp; (A3_MA != <span class="number">5&#x27;b0</span>))? forward_EX_MA:</span><br><span class="line">							((RT_EX == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;b0</span>))? forward_MA_WB:</span><br><span class="line">							RD2_EX;<span class="comment">//将目前正确的Grt值，流水到MA级供sw指令使用，也可供R-type-ALU指令使用</span></span><br><span class="line">										</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] Grt_MA_valid; </span><br><span class="line">							</span><br><span class="line">   <span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] ALU_B_EX_valid = (ALUSrc_EX == <span class="number">1&#x27;b0</span>) ? Grt_EX_valid:</span><br><span class="line">							 (ALUSrc_EX == <span class="number">1&#x27;b1</span>) ? ext32_EX : <span class="number">32&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>MA级</p>
+<p>  再一次获取转发数据，确保DM中的Grt值是正确的</p>
+</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] Grt_MA_valid_valid = ((RT_MA == A3_WB) &amp;&amp; (A3_WB != <span class="number">5&#x27;d0</span>))? forward_MA_WB: Grt_MA_valid;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="流水线寄存器"><a href="#流水线寄存器" class="headerlink" title="流水线寄存器"></a>流水线寄存器</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>PC</th>
+<th>IF_ID</th>
+<th>ID_EX</th>
+<th>EX_MA</th>
+<th>MA_WB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>en</td>
+<td>nStall</td>
+<td>nStall</td>
+<td>true</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>clr</td>
+<td>null</td>
+<td>false</td>
+<td>Stall</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>RegDst</th>
+<th>ExtOp</th>
+<th>jump</th>
+<th>jumpSrc</th>
+<th>branch</th>
+<th>bOp</th>
+<th>ALUSrc</th>
+<th>ALUOP</th>
+<th>mdOp</th>
+<th>load_type</th>
+<th>store_type</th>
+<th>MemWrite</th>
+<th>Mem2Reg</th>
+<th>RegWrite</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>作用阶段</td>
+<td>EX</td>
+<td>ID</td>
+<td>ID</td>
+<td>ID</td>
+<td>ID</td>
+<td>ID</td>
+<td>EX</td>
+<td>EX</td>
+<td>EX</td>
+<td>MA</td>
+<td>MA</td>
+<td>MA</td>
+<td>WB</td>
+<td>WB</td>
+</tr>
+<tr>
+<td>IF_ID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ID_EX</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>EX_MA</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MA_WB</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h4 id="Stall-Explain"><a href="#Stall-Explain" class="headerlink" title="Stall Explain"></a>Stall Explain</h4><p>ID级指令静止，EX级插入一个nop</p>
+<ul>
+<li>PC不写入新数据</li>
+<li>IF_ID寄存器不写入新数据</li>
+<li>ID_EX寄存器清零，即插入nop(0x00000000)</li>
+</ul>
+<h4 id="Logic"><a href="#Logic" class="headerlink" title="Logic"></a>Logic</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> Stage_Reg(</span><br><span class="line">		<span class="keyword">input</span> clk,</span><br><span class="line">		<span class="keyword">input</span> reset,</span><br><span class="line">		<span class="keyword">input</span> en,</span><br><span class="line">		<span class="keyword">input</span> clr,</span><br><span class="line">		<span class="keyword">input</span> [<span class="number">31</span>:<span class="number">0</span>] data,</span><br><span class="line">		<span class="keyword">output</span> <span class="keyword">reg</span> [<span class="number">31</span>:<span class="number">0</span>] data_out</span><br><span class="line">    );</span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">			data_out &lt;= <span class="number">0</span>;</span><br><span class="line">	 <span class="keyword">end</span></span><br><span class="line">	 </span><br><span class="line">	 <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">		<span class="keyword">if</span> (reset || clr) <span class="keyword">begin</span></span><br><span class="line">			 data_out &lt;= <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">begin</span></span><br><span class="line">			<span class="keyword">if</span> (en) <span class="keyword">begin</span></span><br><span class="line">				data_out &lt;= data;</span><br><span class="line">			<span class="keyword">end</span></span><br><span class="line">		<span class="keyword">end</span></span><br><span class="line">	 <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="信号解释"><a href="#信号解释" class="headerlink" title="信号解释"></a>信号解释</h2><h4 id="jumpSrc-2-bit"><a href="#jumpSrc-2-bit" class="headerlink" title="jumpSrc (2-bit)"></a>jumpSrc (2-bit)</h4><table>
+<thead>
+<tr>
+<th>jumpSrc</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2’b00</td>
+<td>branch</td>
+</tr>
+<tr>
+<td>2’b01</td>
+<td>jump</td>
+</tr>
+<tr>
+<td>2’b10</td>
+<td>jr</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> next_pc_ID = (jumpSrc_ID == <span class="number">2&#x27;b00</span>) ? branch_offset_ID:</span><br><span class="line">                    (jumpSrc_ID == <span class="number">2&#x27;b01</span>) ? jumpExt32_ID:</span><br><span class="line">                    (jumpSrc_ID == <span class="number">2&#x27;b10</span>) ? RD1_ID_valid: <span class="number">32&#x27;h404</span>; </span><br></pre></td></tr></table></figure>
+
+<h4 id="Mem2Reg-2-bit"><a href="#Mem2Reg-2-bit" class="headerlink" title="Mem2Reg (2-bit)"></a>Mem2Reg (2-bit)</h4><table>
+<thead>
+<tr>
+<th>Mem2Reg</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2‘b00</td>
+<td>ALU</td>
+</tr>
+<tr>
+<td>2’b01</td>
+<td>lw</td>
+</tr>
+<tr>
+<td>2’b10</td>
+<td>link</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> grf_WD = (Mem2Reg_WB == <span class="number">2&#x27;b00</span>) ? ALU_C_WB :</span><br><span class="line">				 (Mem2Reg_WB == <span class="number">2&#x27;b01</span>) ? dm_data_WB :</span><br><span class="line">				 (Mem2Reg_WB == <span class="number">2&#x27;b10</span>) ? pc_add4_WB + <span class="number">32&#x27;d4</span> : <span class="number">32&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="RegDst-2-bit"><a href="#RegDst-2-bit" class="headerlink" title="RegDst (2-bit)"></a>RegDst (2-bit)</h4><table>
+<thead>
+<tr>
+<th>RegDst</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2’b00</td>
+<td>无需写入寄存器的指令</td>
+</tr>
+<tr>
+<td>2’b01</td>
+<td>R-type，写入rd寄存器</td>
+</tr>
+<tr>
+<td>2’b10</td>
+<td>I-type，写入rt寄存器</td>
+</tr>
+<tr>
+<td>2’b11</td>
+<td>link，写入$ra ($31)</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> A3_EX =  (RegDst_EX == <span class="number">2&#x27;b00</span>)? <span class="number">5&#x27;b0</span>: <span class="comment">//null</span></span><br><span class="line">                (RegDst_EX == <span class="number">2&#x27;b01</span>)? RD_EX:</span><br><span class="line">				(RegDst_EX == <span class="number">2&#x27;b10</span>)? RT_EX:</span><br><span class="line">                (RegDst_EX == <span class="number">2&#x27;b11</span>)? <span class="number">5&#x27;h1f</span>:</span><br><span class="line">				<span class="number">5&#x27;b00000</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="ALUOp-4-bit"><a href="#ALUOp-4-bit" class="headerlink" title="ALUOp (4-bit)"></a>ALUOp (4-bit)</h4><table>
+<thead>
+<tr>
+<th>ALUOp</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4’b0000</td>
+<td>add</td>
+</tr>
+<tr>
+<td>4’b0001</td>
+<td>sub</td>
+</tr>
+<tr>
+<td>4’b0010</td>
+<td>or</td>
+</tr>
+<tr>
+<td>4’b0011</td>
+<td>lui</td>
+</tr>
+<tr>
+<td>4’b0100</td>
+<td>and</td>
+</tr>
+<tr>
+<td>4’b0101</td>
+<td>slt</td>
+</tr>
+<tr>
+<td>4’b0110</td>
+<td>sltu</td>
+</tr>
+<tr>
+<td>4’b0111</td>
+<td>addi</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] A_ext = &#123;A[<span class="number">31</span>],A&#125;;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] B_ext = &#123;B[<span class="number">31</span>],B&#125;;</span><br><span class="line"><span class="keyword">wire</span> [<span class="number">32</span>:<span class="number">0</span>] temp = A_ext + B_ext;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">      <span class="keyword">case</span>(F)</span><br><span class="line">          `ADD:    C = A + B;</span><br><span class="line">		`ADDI:	C = (temp[<span class="number">32</span>] == temp[<span class="number">31</span>])?temp[<span class="number">31</span>:<span class="number">0</span>]:<span class="number">32&#x27;d0</span>;</span><br><span class="line">          `SUB:    C = A - B;</span><br><span class="line">          `OR:     C = A | B;</span><br><span class="line">          `SL16:   C = B &lt;&lt; <span class="number">16</span>;</span><br><span class="line">		`AND:		C = A &amp; B; </span><br><span class="line">		`SLT:  	C = (<span class="built_in">$signed</span>(A) &lt; <span class="built_in">$signed</span>(B))? <span class="number">32&#x27;b1</span>: <span class="number">32&#x27;b0</span>;</span><br><span class="line">		`SLTU: 	C = (A &lt; B)? <span class="number">32&#x27;b1</span>: <span class="number">32&#x27;b0</span>;</span><br><span class="line">          <span class="keyword">default</span>:C = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">endcase</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="mdOp-4-bit"><a href="#mdOp-4-bit" class="headerlink" title="mdOp (4-bit)"></a>mdOp (4-bit)</h3><table>
+<thead>
+<tr>
+<th>mdOp</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4’b0001</td>
+<td>mult</td>
+</tr>
+<tr>
+<td>4’b0010</td>
+<td>multu</td>
+</tr>
+<tr>
+<td>4’b0011</td>
+<td>div</td>
+</tr>
+<tr>
+<td>4’b0100</td>
+<td>divu</td>
+</tr>
+<tr>
+<td>4’b0101</td>
+<td>mthi</td>
+</tr>
+<tr>
+<td>4’b0110</td>
+<td>mtlo</td>
+</tr>
+<tr>
+<td>4’b0111</td>
+<td>mfhi</td>
+</tr>
+<tr>
+<td>4’b1000</td>
+<td>mflo</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in MulDivBlock</span></span><br><span class="line"><span class="keyword">always</span> @(*) <span class="keyword">begin</span></span><br><span class="line">	<span class="keyword">case</span> (op)</span><br><span class="line">		<span class="number">4&#x27;b0001</span>: &#123;prod_HI, prod_LO&#125; = (<span class="built_in">$signed</span>(A) * <span class="built_in">$signed</span>(B));<span class="comment">//mult</span></span><br><span class="line">		<span class="number">4&#x27;b0010</span>: &#123;prod_HI, prod_LO&#125; = <span class="built_in">$unsigned</span>(A) * <span class="built_in">$unsigned</span>(B);<span class="comment">//multu</span></span><br><span class="line">		<span class="number">4&#x27;b0011</span>: &#123;prod_HI, prod_LO&#125; = &#123;<span class="built_in">$signed</span>(A) % <span class="built_in">$signed</span>(B), <span class="built_in">$signed</span>(A) / <span class="built_in">$signed</span>(B)&#125;;<span class="comment">//div</span></span><br><span class="line">		<span class="number">4&#x27;b0100</span>: &#123;prod_HI, prod_LO&#125; = &#123;A % B, A / B&#125;;<span class="comment">//divu</span></span><br><span class="line">	<span class="keyword">endcase</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">31</span>:<span class="number">0</span>] mdb_output = (mdOp_EX == <span class="number">4&#x27;b0111</span>)? mdb_HI:</span><br><span class="line">							  (mdOp_EX == <span class="number">4&#x27;b1000</span>)? mdb_LO:</span><br><span class="line">							  <span class="number">32&#x27;d0</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="load-type-3-bit"><a href="#load-type-3-bit" class="headerlink" title="load_type (3-bit)"></a>load_type (3-bit)</h3><table>
+<thead>
+<tr>
+<th>load_type</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3’b000</td>
+<td>lw</td>
+</tr>
+<tr>
+<td>3’b001</td>
+<td>lbu</td>
+</tr>
+<tr>
+<td>3’b010</td>
+<td>lb</td>
+</tr>
+<tr>
+<td>3’b011</td>
+<td>lhu</td>
+</tr>
+<tr>
+<td>3’b100</td>
+<td>lh</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assign</span> data_out = (load_type == <span class="number">3&#x27;b000</span>)? data_input:</span><br><span class="line">					 (load_type == <span class="number">3&#x27;b001</span>)? &#123;<span class="number">24&#x27;b0</span>, byte_sel&#125;:</span><br><span class="line">					 (load_type == <span class="number">3&#x27;b010</span>)? &#123;&#123;<span class="number">24</span>&#123;byte_sel[<span class="number">7</span>]&#125;&#125;, byte_sel&#125;:</span><br><span class="line">					 (load_type == <span class="number">3&#x27;b011</span>)? &#123;<span class="number">16&#x27;b0</span>, hw_sel&#125;:</span><br><span class="line">					 (load_type == <span class="number">3&#x27;b100</span>)? &#123;&#123;<span class="number">16</span>&#123;hw_sel[<span class="number">15</span>]&#125;&#125;, hw_sel&#125;:</span><br><span class="line">					 <span class="number">32&#x27;b0</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="store-type-3-bit"><a href="#store-type-3-bit" class="headerlink" title="store_type (3-bit)"></a>store_type (3-bit)</h3><table>
+<thead>
+<tr>
+<th>store_type</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3’b001</td>
+<td>sw</td>
+</tr>
+<tr>
+<td>3’b010</td>
+<td>sb</td>
+</tr>
+<tr>
+<td>3’b100</td>
+<td>sh</td>
+</tr>
+</tbody></table>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> [<span class="number">3</span>:<span class="number">0</span>] byteen_MA = (store_type_MA == <span class="number">3&#x27;b001</span>)? <span class="number">4&#x27;b1111</span>: <span class="comment">//word</span></span><br><span class="line">							((store_type_MA == <span class="number">3&#x27;b010</span>))? byte_sel:<span class="comment">//byte</span></span><br><span class="line">							(store_type_MA == <span class="number">3&#x27;b100</span>)? hw_sel:<span class="comment">//half word</span></span><br><span class="line">							<span class="number">4&#x27;b0000</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试方案"><a href="#测试方案" class="headerlink" title="测试方案"></a>测试方案</h2><h3 id="指令分类"><a href="#指令分类" class="headerlink" title="指令分类"></a>指令分类</h3><h4 id="R-type"><a href="#R-type" class="headerlink" title="R-type"></a>R-type</h4><ul>
+<li><em><strong>ALU型指令（Grd &lt;- Grs ? Grt）</strong></em>——（add、sub、or、and、slt、sltu）</li>
+<li><em><strong>ALU型指令（Grd &lt;- Grt ？ shamt）</strong></em>——（sll、srl、sra）</li>
+<li><em><strong>跳转型指令（PC &lt;- Grs）</strong></em>——（jr）</li>
+</ul>
+<h4 id="I-type"><a href="#I-type" class="headerlink" title="I-type"></a>I-type</h4><ul>
+<li><em><strong>ALU-Imm型指令（Grt &lt;- Grs ？ imm）</strong></em>——（ori、lui、addi、andi）</li>
+<li><em><strong>Memory-Store型指令（Memory[Grs + offset] &lt;- Grt）</strong></em>——（sw、sb、sh）</li>
+<li><em><strong>Memory-load型指令（Grt &lt;- Memory[Grs + offset]）</strong></em>——（lw、lb、lbu、lh）</li>
+<li><em><strong>Branch型指令（Grs ? Grt，PC &lt;- PC + 4 + offset）</strong></em>——（beq、bgez、bgtz、blez、bltz、bne）</li>
+</ul>
+<h4 id="J-type"><a href="#J-type" class="headerlink" title="J-type"></a>J-type</h4><ul>
+<li><em><strong>J-link型指令</strong></em> —— (jal)</li>
+<li><em><strong>无条件Jump型指令</strong></em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>IF级</th>
+<th>ID级</th>
+<th>EX级</th>
+<th>MA级</th>
+<th>WB级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><strong>R-ALU</strong></em></td>
+<td></td>
+<td>读取数据（Grs、Grt）</td>
+<td>计算数据</td>
+<td></td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><em><strong>R-jump</strong></em></td>
+<td></td>
+<td>读取数据并跳转</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>I-imm</strong></em></td>
+<td></td>
+<td>读取数据（Grt、imm）</td>
+<td>计算数据</td>
+<td></td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><em><strong>I-store</strong></em></td>
+<td></td>
+<td>读取数据（Grs+offset、Grt）</td>
+<td>计算数据（地址）</td>
+<td>写入数据</td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>I-load</strong></em></td>
+<td></td>
+<td>读取数据（Grs+offset、Grt）</td>
+<td>计算数据（地址）</td>
+<td>读取数据</td>
+<td>写入数据</td>
+</tr>
+<tr>
+<td><em><strong>I-branch</strong></em></td>
+<td></td>
+<td>读取数据（Grs、Grt）比较数据并跳转</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em><strong>J-link</strong></em></td>
+<td></td>
+<td>扩展数据并跳转</td>
+<td>传递跳转PC</td>
+<td>传递跳转PC</td>
+<td>写入pc+8</td>
+</tr>
+</tbody></table>
+<h3 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h3><ol>
+<li>编写测试代码<ul>
+<li>包括所有阻塞情况</li>
+<li>测试所有转发通路</li>
+<li>可利用课程组提供的分析工具对代码测试强度进行评估</li>
+</ul>
+</li>
+<li>将ISE输出与Mars输出比对<ul>
+<li>可利用同学开发评测机进行快速比对</li>
+</ul>
+</li>
+<li>大量随机数据强测<ul>
+<li>代码生成来自<a href="hyggge.github.io">学长博客</a></li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">list_R = [<span class="string">&quot;addu&quot;</span>, <span class="string">&quot;subu&quot;</span>, <span class="string">&quot;and&quot;</span>, <span class="string">&quot;or&quot;</span>, <span class="string">&quot;nor&quot;</span>, <span class="string">&quot;xor&quot;</span>, <span class="string">&quot;sltu&quot;</span>, <span class="string">&quot;slt&quot;</span>, <span class="string">&quot;sllv&quot;</span>, <span class="string">&quot;srlv&quot;</span>, <span class="string">&quot;srav&quot;</span>]</span><br><span class="line">list_I = [<span class="string">&quot;andi&quot;</span>, <span class="string">&quot;addiu&quot;</span>, <span class="string">&quot;ori&quot;</span>, <span class="string">&quot;xori&quot;</span>, <span class="string">&quot;lui&quot;</span>, <span class="string">&quot;slti&quot;</span>, <span class="string">&quot;sltiu&quot;</span>]</span><br><span class="line">list_LS = [<span class="string">&quot;lw&quot;</span>, <span class="string">&quot;sw&quot;</span>, <span class="string">&quot;lh&quot;</span>, <span class="string">&quot;lhu&quot;</span>, <span class="string">&quot;sh&quot;</span>, <span class="string">&quot;lb&quot;</span>, <span class="string">&quot;lbu&quot;</span>, <span class="string">&quot;sb&quot;</span>]</span><br><span class="line">list_shift = [<span class="string">&quot;sll&quot;</span>, <span class="string">&quot;srl&quot;</span>, <span class="string">&quot;sra&quot;</span>]</span><br><span class="line">list_B = [<span class="string">&quot;bne&quot;</span>, <span class="string">&quot;beq&quot;</span>,<span class="string">&quot;bgtz&quot;</span>, <span class="string">&quot;blez&quot;</span>, <span class="string">&quot;bltz&quot;</span>, <span class="string">&quot;bgez&quot;</span>]</span><br><span class="line">list_MD = [<span class="string">&quot;mult&quot;</span>, <span class="string">&quot;multu&quot;</span>, <span class="string">&quot;div&quot;</span>, <span class="string">&quot;divu&quot;</span>]</span><br><span class="line">list_MTMF = [<span class="string">&quot;mfhi&quot;</span>, <span class="string">&quot;mflo&quot;</span>, <span class="string">&quot;mthi&quot;</span>, <span class="string">&quot;mtlo&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#length是生成的指令所用到的寄存器个数</span></span><br><span class="line">length = <span class="number">8</span> <span class="comment">#为了增大冒险概率，我们将寄存器的范围缩小到0~7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">R_test</span>(<span class="params">file, n</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % <span class="built_in">len</span>(list_R)</span><br><span class="line">        rs = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length;</span><br><span class="line">        rt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length;</span><br><span class="line">        rd = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length;</span><br><span class="line">        s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, $&#123;&#125;, $&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_R[k], rd, rs, rt)</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">I_test</span>(<span class="params">file, n</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % <span class="built_in">len</span>(list_I)</span><br><span class="line">        rs = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        rt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        imm = random.randint(-<span class="number">32768</span>, <span class="number">32768</span>)</span><br><span class="line">        abs_imm = random.randint(<span class="number">0</span>, <span class="number">65536</span>)</span><br><span class="line">        <span class="keyword">if</span> list_I[k] == <span class="string">&quot;lui&quot;</span>:</span><br><span class="line">            s = <span class="string">&quot;&#123;&#125; $&#123;&#125;,&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_I[k], rt, abs_imm)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, $&#123;&#125;, &#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_I[k], rt, rs, imm)</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">LS_test</span>(<span class="params">file, n</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = random.randint(<span class="number">0</span>,<span class="number">10000000</span>) % <span class="built_in">len</span>(list_LS)</span><br><span class="line">        ins = list_LS[k]</span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span>(ins[<span class="number">1</span>] == <span class="string">&quot;w&quot;</span>):</span><br><span class="line">            num = (random.randint(<span class="number">0</span>,<span class="number">10000000</span>) &lt;&lt; <span class="number">2</span>) % <span class="number">4096</span></span><br><span class="line">        <span class="keyword">elif</span>(ins[<span class="number">1</span>] == <span class="string">&quot;h&quot;</span>):</span><br><span class="line">            num = (random.randint(<span class="number">0</span>,<span class="number">10000000</span>) &lt;&lt; <span class="number">1</span>) % <span class="number">4096</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            num = (random.randint(<span class="number">0</span>,<span class="number">10000000</span>)) % <span class="number">4096</span></span><br><span class="line">        </span><br><span class="line">        rt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, &#123;&#125;($0)\n&quot;</span>.<span class="built_in">format</span>(ins, rt, num)</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">shift_test</span>(<span class="params">file, n</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = random.randint(<span class="number">0</span>,<span class="number">10000000</span>) % <span class="built_in">len</span>(list_shift)</span><br><span class="line">        shamt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        rd = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        rt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, $&#123;&#125;, &#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_shift[k], rd, rt, shamt)</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">MD_test</span>(<span class="params">file, n</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = random.randint(<span class="number">0</span>,<span class="number">10000000</span>) % <span class="built_in">len</span>(list_MD)</span><br><span class="line">        rs = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        rt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        <span class="keyword">if</span>(list_MD[k] == <span class="string">&quot;mult&quot;</span> <span class="keyword">or</span> list_MD[k] == <span class="string">&quot;mul&quot;</span>):</span><br><span class="line">            s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, $&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_MD[k], rs, rt)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, $&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_MD[k], rs, <span class="number">8</span>)</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">MTMF_test</span>(<span class="params">file, n</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        k = random.randint(<span class="number">0</span>,<span class="number">10000000</span>) % <span class="built_in">len</span>(list_MTMF)</span><br><span class="line">        rs = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        s = <span class="string">&quot;&#123;&#125; $&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_MTMF[k], rs)</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">B_test</span>(<span class="params">file, lable</span>):</span><br><span class="line">    k = random.randint(<span class="number">0</span>,<span class="number">10000000</span>) % <span class="built_in">len</span>(list_B)</span><br><span class="line">    <span class="keyword">if</span>(k == <span class="number">0</span> <span class="keyword">or</span> k == <span class="number">1</span>):</span><br><span class="line">        rs = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        rt = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, $&#123;&#125;, &#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_B[k], rs, rt, lable)</span><br><span class="line">        file.write(s)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        rs = random.randint(<span class="number">0</span>, <span class="number">10000000</span>) % length</span><br><span class="line">        s = <span class="string">&quot;&#123;&#125; $&#123;&#125;, &#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(list_B[k], rs, <span class="built_in">str</span>(lable))</span><br><span class="line">        file.write(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b_begin</span>(<span class="params">file, n</span>):</span><br><span class="line">    file.write(<span class="string">&quot;\nb_test_&#123;&#125;_one:\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    B_test(file, <span class="string">&quot;b_test_&#123;&#125;_one_then&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    R_test(file,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    file.write(<span class="string">&quot;b_test_&#123;&#125;_two:\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    B_test(file, <span class="string">&quot;b_test_&#123;&#125;_two_then&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    I_test(file,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    file.write(<span class="string">&quot;jal_test_&#123;&#125;:\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    file.write(<span class="string">&quot;jal jal_test_&#123;&#125;_then\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    I_test(file,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    file.write(<span class="string">&quot;end_&#123;&#125;:\n\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line"></span><br><span class="line">    R_test(file, <span class="number">1</span>)</span><br><span class="line">    I_test(file, <span class="number">1</span>)</span><br><span class="line">    LS_test(file, <span class="number">1</span>)</span><br><span class="line">    shift_test(file, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b_end</span>(<span class="params">file, n</span>):</span><br><span class="line">    file.write(<span class="string">&quot;\nb_test_&#123;&#125;_one_then:\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    R_test(file, <span class="number">1</span>)</span><br><span class="line">    I_test(file, <span class="number">1</span>)</span><br><span class="line">    LS_test(file, <span class="number">1</span>)</span><br><span class="line">    shift_test(file, <span class="number">1</span>)</span><br><span class="line">    MD_test(file, <span class="number">1</span>)</span><br><span class="line">    MTMF_test(file, <span class="number">1</span>)</span><br><span class="line">    file.write(<span class="string">&quot;j b_test_&#123;&#125;_two\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    R_test(file, <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    file.write(<span class="string">&quot;\nb_test_&#123;&#125;_two_then:\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    R_test(file, <span class="number">1</span>)</span><br><span class="line">    I_test(file, <span class="number">1</span>)</span><br><span class="line">    LS_test(file, <span class="number">1</span>)</span><br><span class="line">    shift_test(file, <span class="number">1</span>)</span><br><span class="line">    MD_test(file, <span class="number">1</span>)</span><br><span class="line">    MTMF_test(file, <span class="number">1</span>)</span><br><span class="line">    file.write(<span class="string">&quot;jal jal_test_&#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    file.write(<span class="string">&quot;addu $1, $ra, $0\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">    file.write(<span class="string">&quot;\njal_test_&#123;&#125;_then:\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    R_test(file, <span class="number">1</span>)</span><br><span class="line">    I_test(file, <span class="number">1</span>)</span><br><span class="line">    LS_test(file, <span class="number">1</span>)</span><br><span class="line">    shift_test(file, <span class="number">1</span>)</span><br><span class="line">    MD_test(file, <span class="number">1</span>)</span><br><span class="line">    MTMF_test(file, <span class="number">1</span>)</span><br><span class="line">    file.write(<span class="string">&quot;addiu $ra,$ra, 8\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    B_test(file, <span class="string">&quot;end_&#123;&#125;&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line">    R_test(file, <span class="number">1</span>)</span><br><span class="line">    I_test(file, <span class="number">1</span>)</span><br><span class="line">    LS_test(file, <span class="number">1</span>)</span><br><span class="line">    shift_test(file, <span class="number">1</span>)</span><br><span class="line">    MD_test(file, <span class="number">1</span>)</span><br><span class="line">    MTMF_test(file, <span class="number">1</span>)</span><br><span class="line">    file.write(<span class="string">&quot;jr $ra\n&quot;</span>.<span class="built_in">format</span>(n))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;mips_code.asm&quot;</span>, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        temp = random.randint(-<span class="number">2147483648</span>, <span class="number">2147483648</span>)</span><br><span class="line">        s = <span class="string">&quot;li $&#123;&#125; &#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(i, temp)</span><br><span class="line">        file.write(s)</span><br><span class="line">    file.write(<span class="string">&quot;li $8, &#123;&#125;\n&quot;</span>.<span class="built_in">format</span>(random.randint(-<span class="number">2147483648</span>, <span class="number">2147483648</span>) % <span class="number">10000</span> + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">        R_test(file, <span class="number">2</span>)</span><br><span class="line">        MD_test(file,<span class="number">1</span>)</span><br><span class="line">        MTMF_test(file, <span class="number">1</span>)</span><br><span class="line">        I_test(file, <span class="number">2</span>)</span><br><span class="line">        LS_test(file, <span class="number">2</span>)</span><br><span class="line">        MTMF_test(file, <span class="number">1</span>)</span><br><span class="line">        I_test(file, <span class="number">2</span>)</span><br><span class="line">        shift_test(file, <span class="number">2</span>)</span><br><span class="line">        file.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">   </span><br></pre></td></tr></table></figure>
+
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><ol>
+<li><p>为什么需要有单独的乘除法部件而不是整合进 ALU？为何需要有独立的 HI、LO 寄存器？</p>
+<blockquote>
+<p>[!ANS]<br>因为乘除操作较为复杂，需要多个周期才能完成，需要单独处理</p>
+</blockquote>
+</li>
+<li><p>真实的流水线 CPU 是如何使用实现乘除法的？请查阅相关资料进行简单说明。 </p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">define</span> size 8  </span></span><br><span class="line"><span class="keyword">module</span> mul_booth_signed(  </span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span> [`size - <span class="number">1</span> : <span class="number">0</span>] mul1,mul2,  </span><br><span class="line">    <span class="keyword">input</span> clk,  </span><br><span class="line">    <span class="keyword">input</span> <span class="keyword">wire</span> [<span class="number">2</span>:<span class="number">0</span>] clk_cnt,<span class="comment">//运算节拍，相当于状态机了，8位的话每次运算有4个拍  </span></span><br><span class="line">    <span class="keyword">output</span> <span class="keyword">wire</span> [<span class="number">2</span>*`size - <span class="number">1</span> : <span class="number">0</span>] res  </span><br><span class="line">    );  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//由于传值默认就是补码，所以只需要再计算“负补码”即可  </span></span><br><span class="line">    <span class="keyword">wire</span> [`size - <span class="number">1</span> : <span class="number">0</span>] bmul1,bmul2;  </span><br><span class="line">    <span class="keyword">assign</span> bmul1 = (~mul1 + <span class="number">1&#x27;b1</span>) ;  </span><br><span class="line">    <span class="keyword">assign</span> bmul2 = (~mul2 + <span class="number">1&#x27;b1</span>) ;<span class="comment">//其实乘数2的负补码也没用到。  </span></span><br><span class="line"> <span class="comment">//其实可以把状态机的开始和结束状态都写出来，我懒得写了，同学们可以尝试一下啊~  </span></span><br><span class="line">    <span class="keyword">parameter</span>   zeroone       =   <span class="number">3&#x27;b00</span>,  </span><br><span class="line">                twothree      =   <span class="number">3&#x27;b001</span>,  </span><br><span class="line">                fourfive      =   <span class="number">3&#x27;b010</span>,  </span><br><span class="line">                sixseven      =   <span class="number">3&#x27;b011</span>;  </span><br><span class="line">    <span class="comment">//y(i-1),y(i),y(i+1)三个数的判断寄存器，由于有多种情况，也可以看成状态机（也可以改写成状态机形式，大家自己试试吧）  </span></span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>:<span class="number">0</span>] temp;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//部分积  </span></span><br><span class="line">    <span class="keyword">reg</span> [<span class="number">2</span>*`size-<span class="number">1</span> : <span class="number">0</span>] A;  </span><br><span class="line"> <span class="comment">//每个节拍下把相应位置的数据传给temp寄存器  </span></span><br><span class="line">    <span class="keyword">always</span> @ (<span class="keyword">posedge</span> clk) <span class="keyword">begin</span>  </span><br><span class="line">        <span class="keyword">case</span>(clk_cnt)  </span><br><span class="line">            zeroone  : temp &lt;= &#123;mul2[<span class="number">1</span>:<span class="number">0</span>],<span class="number">1&#x27;b0</span>&#125;;  </span><br><span class="line">            twothree : temp &lt;= mul2[<span class="number">3</span>:<span class="number">1</span>];  </span><br><span class="line">            fourfive : temp &lt;= mul2[<span class="number">5</span>:<span class="number">3</span>];  </span><br><span class="line">            sixseven : temp &lt;= mul2[<span class="number">7</span>:<span class="number">5</span>];  </span><br><span class="line">            <span class="keyword">default</span> : temp &lt;= <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">endcase</span>  </span><br><span class="line">    <span class="keyword">end</span>  </span><br><span class="line">   </span><br><span class="line">    <span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span>  </span><br><span class="line">        <span class="keyword">if</span> (clk_cnt == <span class="number">3&#x27;b100</span>) <span class="keyword">begin</span><span class="comment">//如果节拍到4就让部分积归0，此时已经完成一次计算了  </span></span><br><span class="line">            A &lt;= <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">end</span> <span class="keyword">else</span> <span class="keyword">case</span> (temp)  </span><br><span class="line">            <span class="number">3&#x27;b000</span>,<span class="number">3&#x27;b111</span> :   <span class="keyword">begin</span><span class="comment">//这些是从高位到低位的判断，别看反了噢  </span></span><br><span class="line">                A &lt;= A + <span class="number">0</span>;  </span><br><span class="line">            <span class="keyword">end</span>  </span><br><span class="line">            <span class="number">3&#x27;b001</span>,<span class="number">3&#x27;b010</span> : <span class="keyword">begin</span><span class="comment">//加法操作使用补码即可，倍数利用左移解决  </span></span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;mul1[`size-<span class="number">1</span>]&#125;&#125;,mul1&#125; &lt;&lt; <span class="number">2</span>*(clk_cnt-<span class="number">1</span>));  </span><br><span class="line">            <span class="keyword">end</span>  </span><br><span class="line">            <span class="number">3&#x27;b011</span> : <span class="keyword">begin</span>  </span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;mul1[`size-<span class="number">1</span>]&#125;&#125;,mul1&#125; &lt;&lt; <span class="number">2</span>*(clk_cnt-<span class="number">1</span>) + <span class="number">1</span>);  </span><br><span class="line">            <span class="keyword">end</span>  </span><br><span class="line">            <span class="number">3&#x27;b100</span>: <span class="keyword">begin</span><span class="comment">//减法操作利用“负补码”改成加法操作，倍数利用左移解决  </span></span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;bmul1[`size-<span class="number">1</span>]&#125;&#125;,bmul1&#125; &lt;&lt; <span class="number">2</span>*(clk_cnt-<span class="number">1</span>) + <span class="number">1</span>);  </span><br><span class="line">            <span class="keyword">end</span>  </span><br><span class="line">            <span class="number">3&#x27;b101</span>,<span class="number">3&#x27;b110</span> : <span class="keyword">begin</span>  </span><br><span class="line">                A &lt;= A + (&#123;&#123;<span class="number">8</span>&#123;bmul1[`size-<span class="number">1</span>]&#125;&#125;,bmul1&#125; &lt;&lt; <span class="number">2</span>*(clk_cnt-<span class="number">1</span>));  </span><br><span class="line">            <span class="keyword">end</span>  </span><br><span class="line">            <span class="keyword">default</span>: A &lt;= <span class="number">0</span>;  </span><br><span class="line">        <span class="keyword">endcase</span>  </span><br><span class="line">    <span class="keyword">end</span>  </span><br><span class="line"> <span class="comment">//当节拍到4的时候写入结果寄存器。  </span></span><br><span class="line">    <span class="keyword">assign</span> res = (clk_cnt == <span class="number">3&#x27;b100</span>) ? A : <span class="number">0</span>;  </span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure></li>
+<li><p>请结合自己的实现分析，你是如何处理 Busy 信号带来的周期阻塞的？</p>
+<blockquote>
+<p>[!ANS]<br>修改P5中的Stall逻辑，当乘除槽处于start或busy状态，且ID级指令需要使用乘除槽时阻塞</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">wire</span> Stall_md = ((busy | start) &amp; (mult_ID | multu_ID | div_ID | divu_ID | mfhi_ID | mflo_ID | mthi_ID | mtlo_ID));</span><br><span class="line"><span class="keyword">assign</span> Stall = Stall_RS_EX | Stall_RS_MA | Stall_RT_EX | Stall_RT_MA | Stall_md;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>请问采用字节使能信号的方式处理写指令有什么好处？（提示：从清晰性、统一性等角度考虑）</p>
+<blockquote>
+<p>[!ANS]<br>更符合实际CPU电路，在实际电路中这样做更加高效。对于外部存储单元，其只需要读取使能信号然后进行相应存储即可，无需增加其他存储逻辑，使外部设备有较为统一的存储逻辑，便于扩展。</p>
+</blockquote>
+</li>
+<li><p>请思考，我们在按字节读和按字节写时，实际从 DM 获得的数据和向 DM 写入的数据是否是一字节？在什么情况下我们按字节读和按字节写的效率会高于按字读和按字写呢？</p>
+<blockquote>
+<p>[!ANS]<br>不是一字节。当存储容量较小时按字节读和写会更加高效, 不需要添加多余的逻辑。</p>
+</blockquote>
+</li>
+<li><p>为了对抗复杂性你采取了哪些抽象和规范手段？这些手段在译码和处理数据冲突的时候有什么样的特点与帮助？</p>
+<blockquote>
+<p>[!ANS]</p>
+<ol>
+<li>在高层模块的排布中就屏蔽了实现的细节，只保留了此模块的端口，以及端口的功能。</li>
+<li>对于同一类型的指令增加多位宽type信号，功能模块根据不同type信号执行对应操作。例如：涉及乘除槽的指令，我设置一个mdOp信号来区分指令，从而减少了流水寄存器的接口数目，从而降低复杂度。</li>
+<li>是否阻塞全部放到冲突处理模块判断，尽可能遵循“高内聚低耦合”的原则。</li>
+<li>乘除槽与ALU分离，但是输出路径一致。不需要更改转发逻辑。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>在本实验中你遇到了哪些不同指令类型组合产生的冲突？你又是如何解决的？相应的测试样例是什么样的？</p>
+<blockquote>
+<p>[!ANS]<br>涉及到HI和LO寄存器的指令与其他读写寄存器指令冲突。通过设置合理的阻塞逻辑解决。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ori $2, $0, 128</span><br><span class="line">lw $3, 0($0)</span><br><span class="line">mult $3, $2</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li><p>如果你是手动构造的样例，请说明构造策略，说明你的测试程序如何保证<strong>覆盖</strong>了所有需要测试的情况；如果你是<strong>完全随机</strong>生成的测试样例，请思考完全随机的测试程序有何不足之处；如果你在生成测试样例时采用了<strong>特殊的策略</strong>，比如构造连续数据冒险序列，请你描述一下你使用的策略如何<strong>结合了随机性</strong>达到强测的效果。</p>
+<blockquote>
+<p>[!ANS]<br>我才用的方案是手动构造样例确保新指令的功能正确性，随机生成指令强测确保转发和阻塞的正确性。限制读写寄存器的范围，能够尽可能多的造成数据冒险，再加上大量随机数据，基本可以覆盖全部转发和阻塞情况。</p>
+</blockquote>
+</li>
+<li><p>[P5、P6 选做] 请评估我们给出的覆盖率分析模型的合理性，如有更好的方案，可一并提出。</p>
+</li>
+</ol>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CO-P6-设计文档</p><p><a href="https://lhy0424.top/2024/12/20/P6-设计文档/">https://lhy0424.top/2024/12/20/P6-设计文档/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Az</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2024-12-20</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2024-12-20</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">CO-P7-设计文档</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><span class="level-item">CO-P5-设计文档</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/az.jpg" alt="Az"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Az</p><p class="is-size-6 is-block">BUAA 2306</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>安徽 阜阳</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">10</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/Accepted0424" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/Accepted0424"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="column-right-shadow is-hidden-widescreen"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3"><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P7_cover.jpg" alt="CO-P7-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T16:01:27.479Z">2024-12-20</time></p><p class="title"><a href="/2024/12/20/P7_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P7-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P6_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P6_cover.jpg" alt="CO-P6-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T16:01:22.392Z">2024-12-20</time></p><p class="title"><a href="/2024/12/20/P6-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P6-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P5_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P5_cover.jpg" alt="CO-P5-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:55.784Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P5-%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P5-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P4_cover.jpg" alt="CO-P4-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:51.083Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P4_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P4-设计文档</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2024/12/19/P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/"><img src="/images/CO_P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/P3_cover.jpg" alt="CO-P3-设计文档"></a></figure><div class="media-content"><p class="date"><time dateTime="2024-12-19T15:58:45.601Z">2024-12-19</time></p><p class="title"><a href="/2024/12/19/P3_%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">CO-P3-设计文档</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">十一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/10/"><span class="level-start"><span class="level-item">十月 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/07/"><span class="level-start"><span class="level-item">七月 2024</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Az&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2024 Az</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
